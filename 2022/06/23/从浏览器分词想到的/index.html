@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <title>
+        
+            从浏览器分词想到的 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/css/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/css/solid.min.css">
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">主页</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">关于</a></div>
+                
+            </div>
+        </div>
+    </div>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            <div class="post-title">
+                <h1>从浏览器分词想到的</h1>
+            </div>
+            <div class="post-meta">
+                <i class="fa-solid fa-clock"></i>&nbsp;
+                <span class="post-date">
+                    2022/06/23
+                </span>
+                <i class="fa-solid fa-calendar-lines-pen"></i>&nbsp;
+                <span class="post-updated">
+                    2022/06/23
+                </span>
+            </div>
+            
+            <div class="post-content">
+                <blockquote>
+<p>整理自 Twitter</p>
+</blockquote>
+<p>一个小细节：浏览器等终端中，鼠标双击或手指长按/双击屏幕时，有部分实现会默认选中一些词语，譬如一句话「中国是一个统一多民族国家。」，Chrome可能会分词为「中国 是 一个 统一 多 民族 国家。」，FireFox或许就会分词为「中国 是一个 统一 多民族国家」，可能还有些浏览器直接不分词，全部选中。</p>
+<p>对英语来说，这个逻辑很容易理解，按照空格来分词就好了，那汉语呢？我们要坚持一个理念：只要没有人特意做出某种功能，那机器永远不会主动具有某种正向特性，除非是副产品。我们看来，双击默认能选中中文词语是很自然的事情，也简单到仿佛匹配个「词库」就能做出来，但这事其实远没这么简单。</p>
+<p>比如，我刚刚路过的「济南幼儿师范高等专科学校」，如果选中「科学」，那就很奇怪，默认选中「专科学校」甚至这整个的专有名词才比较正确。事实上，Telegram就默认没有加入中文分词引擎，如果想要检索某条中文消息，那必须全句匹配，否则你只能自己手动以空格进行分词——即英语的分词方式。</p>
+<p>某种角度上，英语确实是最适合计算机表示、处理的语言。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    &copy; 2022 wolfyzhang.
+                </div>
+            
+            
+                <div class="footer-meta-licenese">
+                    Licensed <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+        </div>
+    </div>
+</footer>
+</div>
+    </div>
+</body>
+</html>
