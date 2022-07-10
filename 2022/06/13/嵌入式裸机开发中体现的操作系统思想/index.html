@@ -94,20 +94,20 @@ sempJsonTwo = _thread.allocate_semephare()
 tomqtt.creatConnect()
 
 <span class="hljs-keyword">def</span> <span class="hljs-title function_">runHeartBeat</span>():
-	tim = Timer(-<span class="hljs-number">1</span>)
-	tim.init(period = <span class="hljs-number">110000</span>, mode = Timer.PERIODIC, callback = tomqtt.runHeartBeat)
+  tim = Timer(-<span class="hljs-number">1</span>)
+  tim.init(period = <span class="hljs-number">110000</span>, mode = Timer.PERIODIC, callback = tomqtt.runHeartBeat)
 
 <span class="hljs-keyword">def</span> <span class="hljs-title function_">runMqttThread</span>():
-	sempJsonOne.pend()
-	tomqtt.runPublishData(json = json_one)
-	sempJsonTwo.pend()
-	tomqtt.runPublishData(json = json_two)
+  sempJsonOne.pend()
+  tomqtt.runPublishData(json = json_one)
+  sempJsonTwo.pend()
+  tomqtt.runPublishData(json = json_two)
 
 <span class="hljs-keyword">def</span> <span class="hljs-title function_">runSensorThread</span>():
-	sensor.runSensor(json = tomqtt.json_one)
-	sempJsonOne.post()
-	sensor.runSensor(json = tomqtt.json_two)
-	sempJsonTwo.post()
+  sensor.runSensor(json = tomqtt.json_one)
+  sempJsonOne.post()
+  sensor.runSensor(json = tomqtt.json_two)
+  sempJsonTwo.post()
 
 
 _thread.start_new_thread(runSensorThread)
