@@ -61,10 +61,13 @@
             
             <div class="post-content">
                 
-                <blockquote>
-<p>整理自 Twitter</p>
-</blockquote>
-<h1 id="一"><a class="markdownIt-Anchor" href="#一"></a> （一）</h1>
+                    <div class="from-twitter">
+                        <blockquote>
+                            <p>整理自 Twitter</p>
+                        </blockquote>
+                    </div>
+                
+                <h1 id="一"><a class="markdownIt-Anchor" href="#一"></a> （一）</h1>
 <p>电子实习要用个ESP32那种的模块接一些传感器搭出个东西，扩展内容是做个Web页面和移动端APP显示。移动端APP和Web页面没有本质区别，而页面本身就带来了问题：ESP32可以借助MQTT等物联协议实现广域网范围内的JSON数据上传，页面图表之类可以用EChart等库在前端渲染显示，那页面本身，放在哪儿？</p>
 <p>一开始考虑，完全没必要上云——既然上云那为何还要用MQTT？边缘设备用WebSocket长连接直接和服务器通信不就好了？还去用第三方的物联平台岂不是多此一举？前段时间某不不具名人士问我类似问题，我也按照这个思路给了回答，现在来看，基本是全都错了</p>
 <p>今晚想到的结论是：首先，协议的选择标准不应是「可以用」，而应该是「适合用」。比如说此处的协议选择，对少数几个设备而言，MQTT和WebSocket均可用来通信，二者没有本质区别，只是前者要走一套独立的协议栈，传输数据是定死的JSON，后者则灵活性更强，数据格式可魔改，也不用再走独立第三方协议栈。</p>
