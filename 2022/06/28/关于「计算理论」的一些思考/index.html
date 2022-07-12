@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <title>
+        
+            关于「计算理论」的一些思考 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/css/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/css/solid.min.css">
+
+    
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">主页</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">关于</a></div>
+                
+            </div>
+        </div>
+    </div>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            <div class="post-title">
+                <h1>关于「计算理论」的一些思考</h1>
+            </div>
+            <div class="post-meta">
+                <i class="fa-solid fa-clock"></i>&nbsp;
+                <span class="post-date">
+                    2022/06/28
+                </span>
+                <i class="fa-solid fa-calendar-lines-pen"></i>&nbsp;
+                <span class="post-updated">
+                    2022/07/05
+                </span>
+            </div>
+            
+            <div class="post-content">
+                
+                    <div class="from-twitter">
+                        <blockquote>
+                            <p>整理自 Twitter</p>
+                        </blockquote>
+                    </div>
+                
+                <p>计算是对信息进行控制。换句话说，对已知信息进行某种加工，从而得出一些未知信息。</p>
+<blockquote>
+<p>计算理论是数学的一个领域，和计算机有密切关系。其中的理论是现代密码协议、计算机设计和许多应用领域的基础。该领域主要关心三个方面的问题：采用什么计算模型（即形式语言、自动机），解决哪些是可计算的、不可计算的（即可计算性理论及演算法），要用多少时间、要用多少存储（即计算复杂性理论）。这三方面的问题可以用一个问题来总括：“电脑的基础能力及限制到什么程度？”计算理论的“计算”并非指纯粹的算术运算（Calculation），而是指从已知的输入透过算法来取得一个问题的答案（Computation），因此，计算理论属于理论计算机科学和应用数学。</p>
+</blockquote>
+<p>最近在想一个问题，「什么是计算」？得出的几个结论：计算是对已知信息进行加工从而得出未知信息的过程；最简单的计算是确定因子，即确定该因子携带的信息；目前的计算机能进行数字和逻辑运算，其实质是一种状态机，即从一种确定状态向另一种确定状态转换；信息论和控制论或许可以帮助解答这个问题。</p>
+<p>最近注意到的一个有趣的观点：计算机和计算机程序都是状态机。计算机实际上是一个大型复杂数字电路，在每个时钟周期到来时，根据当前时序逻辑部件的状态，在组合逻辑部件的作用下，计算出并转移到下一时钟周期的新状态之中，周而复始。这其实就是图灵机的一种偏向于数字电路的表述。</p>
+<p>至于说计算机程序，我们可以假设某计算机的时序逻辑部件（存储器）具有<code>N</code>个可能状态，那么某一时刻计算机则必定处于<code>N</code>的一个子集<code>n1</code>之中，程序此时即可对<code>n1</code>状态下的计算机进行操作，使其进入<code>n2</code>状态。显然将「软件的程序操作」实现为「硬件的电气状态」的部件即为组合逻辑部件，一般叫<code>ALU</code>。</p>
+<p>留个问题在这儿：此处的「程序操作」，必须是ISA中规定的操作吗？比如我写一个<code>z=x+y;</code>的C语句，该语句对计算机的操作能否视作这里状态机视角下的「程序操作」？我个人倾向于必须是ISA中规定操作，不过目前我还说服不了我自己——高级语言语句也是实现从一状态到另一状态，只是过程中有很多细粒度操作而已。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    &copy; 2022 wolfyzhang.
+                </div>
+            
+            
+                <div class="footer-meta-licenese">
+                    Licensed <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+        </div>
+    </div>
+</footer>
+</div>
+    </div>
+</body>
+</html>
