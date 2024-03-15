@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@300&display=swap" rel="stylesheet">
+    <title>
+        
+            以 HAL 方式实现 xv6-riscv 在 CV1800B 上的移植 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            <div class="post-title">
+                <h1>以 HAL 方式实现 xv6-riscv 在 CV1800B 上的移植</h1>
+            </div>
+            <div class="post-meta">
+                <i>Published: </i>
+                <span class="post-date">
+                    2024/01/14
+                </span>
+                <i>Updated: </i>
+                <span class="post-updated">
+                    2024/03/15
+                </span><br/>
+                <i>Words: </i>
+                <span class="post-updated">
+                    129
+                </span>
+            </div>
+            
+            
+            <div class="post-content">
+                <p>xv6-riscv 是一款简小但完整的类 Unix 教学用 OS。</p>
+<h1 id="1-操作系统移植的理论基础"><a class="markdownIt-Anchor" href="#1-操作系统移植的理论基础"></a> 1 操作系统移植的理论基础</h1>
+<h2 id="11-硬编码"><a class="markdownIt-Anchor" href="#11-硬编码"></a> 1.1 硬编码</h2>
+<h2 id="12-硬件兼容层hal"><a class="markdownIt-Anchor" href="#12-硬件兼容层hal"></a> 1.2 硬件兼容层（HAL）</h2>
+<h1 id="2-hal-简介"><a class="markdownIt-Anchor" href="#2-hal-简介"></a> 2 HAL 简介</h1>
+<h2 id="21-已有的成熟实现"><a class="markdownIt-Anchor" href="#21-已有的成熟实现"></a> 2.1 已有的成熟实现</h2>
+<h3 id="211-stm32-hal-库"><a class="markdownIt-Anchor" href="#211-stm32-hal-库"></a> 2.1.1 STM32 HAL 库</h3>
+<h3 id="212-abstract-machine-hal"><a class="markdownIt-Anchor" href="#212-abstract-machine-hal"></a> 2.1.2 Abstract Machine HAL</h3>
+<h2 id="22-使用-hal-进行-xv6-riscv-的移植"><a class="markdownIt-Anchor" href="#22-使用-hal-进行-xv6-riscv-的移植"></a> 2.2 使用 HAL 进行 xv6-riscv 的移植</h2>
+<h1 id="3-risc-v-架构的-cv1800b"><a class="markdownIt-Anchor" href="#3-risc-v-架构的-cv1800b"></a> 3 RISC-V 架构的 CV1800B</h1>
+<h1 id="4-xv6-riscv-cv1800b-的-hal-接口"><a class="markdownIt-Anchor" href="#4-xv6-riscv-cv1800b-的-hal-接口"></a> 4 xv6-riscv-cv1800b 的 HAL 接口</h1>
+<h2 id="41-xv6-riscv-的系统调用设计"><a class="markdownIt-Anchor" href="#41-xv6-riscv-的系统调用设计"></a> 4.1 xv6-riscv 的系统调用设计</h2>
+<h2 id="42-cv1800b-的硬件特性"><a class="markdownIt-Anchor" href="#42-cv1800b-的硬件特性"></a> 4.2 CV1800B 的硬件特性</h2>
+<h3 id="421-cv1800b-bsp"><a class="markdownIt-Anchor" href="#421-cv1800b-bsp"></a> 4.2.1 CV1800B BSP</h3>
+<h3 id="422-cv1800b-linux-51-base-sdk"><a class="markdownIt-Anchor" href="#422-cv1800b-linux-51-base-sdk"></a> 4.2.2 CV1800B Linux-5.1-Base-SDK</h3>
+<h2 id="43-hal-实现"><a class="markdownIt-Anchor" href="#43-hal-实现"></a> 4.3 HAL 实现</h2>
+<h1 id="5-编译调试"><a class="markdownIt-Anchor" href="#5-编译调试"></a> 5 编译调试</h1>
+<h1 id="6-效果测试"><a class="markdownIt-Anchor" href="#6-效果测试"></a> 6 效果测试</h1>
+<h1 id="7-总结"><a class="markdownIt-Anchor" href="#7-总结"></a> 7 总结</h1>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 118k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@300&display=swap" rel="stylesheet">
+    <title>
+        
+            WinDbg、GDB 与 LLDB 调试的原理及特性区别 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            <div class="post-title">
+                <h1>WinDbg、GDB 与 LLDB 调试的原理及特性区别</h1>
+            </div>
+            <div class="post-meta">
+                <i>Published: </i>
+                <span class="post-date">
+                    2024/02/08
+                </span>
+                <i>Updated: </i>
+                <span class="post-updated">
+                    2024/03/15
+                </span><br/>
+                <i>Words: </i>
+                <span class="post-updated">
+                    1.2k
+                </span>
+            </div>
+            
+            
+            <div class="post-content">
+                <h1 id="1-逐个介绍这三大-debugger"><a class="markdownIt-Anchor" href="#1-逐个介绍这三大-debugger"></a> 1. 逐个介绍这三大 Debugger</h1>
+<h2 id="11-linux-下的-gdb"><a class="markdownIt-Anchor" href="#11-linux-下的-gdb"></a> 1.1 Linux 下的 GDB</h2>
+<h3 id="111-原理"><a class="markdownIt-Anchor" href="#111-原理"></a> 1.1.1 原理</h3>
+<p>GDB（GNU Debugger）是在 Unix-like OS 上使用的开源 debugger，支持多种编程语言，如 C、C++ 和 Fortran。其原理是通过 Unix-like OS 上的 <code>ptrace</code> 系统调用来控制另一个进程的执行、获取和改变其内存中的内容以及其寄存器的状态。</p>
+<p>伪代码用于说明 GDB 的工作原理：</p>
+<pre><code class="hljs C"><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> **argv)</span> &#123;
+    Debugger gdb = initialize_debugger ();
+    Program program = load_program (argv [<span class="hljs-number">1</span>]);
+
+    set_breakpoint (program, line_number);
+
+    <span class="hljs-keyword">while</span> (execute_next_instruction (program)) &#123;
+        <span class="hljs-keyword">if</span> (current_instruction (program) == breakpoint) &#123;
+            pause_execution (program);
+
+            print_debug_info (program);
+
+            <span class="hljs-keyword">switch</span> (wait_for_user_input ()) &#123;
+                <span class="hljs-keyword">case</span> CONTINUE: continue_execution (program); <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> STEP: step_into (program); <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> QUIT: <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>); <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">default</span>: handle_other_commands (); <span class="hljs-keyword">break</span>;
+            &#125;
+        &#125;
+    &#125;
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre>
+<p><code>ptrace</code> 是 POSIX 兼容的一个系统调用，涉及两个进程：一个是控制进程（GDB），另一个是被控制进程（被调试的程序），可以使得一个进程去观察和控制另一个进程的执行，并能改变其寄存器和内存值。<code>ptrace</code> 直接提供了很多请求代码，像是以下操作可以直接返回结果：</p>
+<ul>
+<li>
+<p>启动、停止子进程的执行</p>
+</li>
+<li>
+<p>读写子进程的内存</p>
+</li>
+<li>
+<p>读写子进程的寄存器</p>
+</li>
+<li>
+<p>单步执行</p>
+</li>
+<li>
+<p>信号处理</p>
+</li>
+</ul>
+<p>给出一个 <code>ptrace</code> 使用示例的伪代码：</p>
+<pre><code class="hljs C"><span class="hljs-type">pid_t</span> child = fork ();
+<span class="hljs-keyword">if</span> (child == <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-comment">// 子进程：被调试的进程 </span>
+    ptrace (PTRACE_TRACEME, <span class="hljs-number">0</span>, <span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>);
+    execvp (program, program_args); <span class="hljs-comment">// 启动目标程序 </span>
+&#125; <span class="hljs-keyword">else</span> &#123;
+    <span class="hljs-comment">// 父进程: GDB 进程 </span>
+    <span class="hljs-type">int</span> status;
+    wait (&amp;status); <span class="hljs-comment">// 等待子进程停止 </span>
+    ptrace (PTRACE_SETOPTIONS, child, <span class="hljs-literal">NULL</span>, PTRACE_O_EXITKILL);
+    <span class="hljs-keyword">while</span> (WIFSTOPPED (status)) &#123;
+        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">user_regs_struct</span> <span class="hljs-title">regs</span>;</span>
+        ptrace (PTRACE_GETREGS, child, <span class="hljs-literal">NULL</span>, &amp;regs); <span class="hljs-comment">// 读取寄存器 </span>
+        <span class="hljs-comment">// 分析或修改寄存器 </span>
+        ptrace (PTRACE_SETREGS, child, <span class="hljs-literal">NULL</span>, &amp;regs); <span class="hljs-comment">// 设置寄存器 </span>
+        ptrace (PTRACE_SINGLESTEP, child, <span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>); <span class="hljs-comment">// 单步执行 </span>
+        wait (&amp;status); <span class="hljs-comment">// 等待子进程下次停止 </span>
+    &#125;
+&#125;</code></pre>
+<p>不同的操作系统也都提供了类似 <code>ptrace</code> 的机制来允许进程之间的调试或者控制：</p>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/win32/api/debugapi/">Windows 提供了调试 API</a>，其中比如包括函数 <code>DebugActiveProcess</code> 来附加到一个进程，以及 <code>WaitForDebugEvent</code> 和 <code>ContinueDebugEvent</code> 来处理调试事件。</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://opensource.apple.com/source/xnu/xnu-344.32/bsd/sys/ptrace.h.auto.html">macOS（BSD 系）也提供了 <code>ptrace</code></a>。</p>
+</li>
+</ul>
+<h3 id="112-使用方式"><a class="markdownIt-Anchor" href="#112-使用方式"></a> 1.1.2 使用方式</h3>
+<p>GDB 一般在命令行里使用，可以启动 GDB 附加到一个正在运行的进程，或者加载一个程序的 core dump 文件。</p>
+<h2 id="12-最强大的之一windbg"><a class="markdownIt-Anchor" href="#12-最强大的之一windbg"></a> 1.2 最强大的（之一）WinDbg</h2>
+<h3 id="121-原理"><a class="markdownIt-Anchor" href="#121-原理"></a> 1.2.1 原理</h3>
+<p>WinDbg 是微软提供的一个 Windows 平台的 debugger，用于调试 Windows 内核、驱动程序以及其他程序。<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools#debugging-environments">WinDbg 使用 Windows 的调试引擎（dbgeng.dll）作为核心</a>，可通过各种协议（如 USB、1394、网络等）与目标系统进行通信。WinDbg 能够处理复杂的调试任务，包括内存泄漏检测、性能问题分析、代码执行跟踪等。</p>
+<p>WinDbg 有着其他调试器很少具备的系统级调试能力，查阅文档发现，是通过与 Windows 操作系统内核的深度集成实现的。</p>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/getting-started-with-windbg--kernel-mode-">内核模式和用户模式</a>：可在内核模式下运行，可以直接与操作系统内核交互，提供对驱动程序和硬件级别事件的调试能力。</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/symbols">符号服务器</a>：用微软的符号服务器来获取系统和应用程序的符号信息，而在 Linux 下一般需要编译器编译时指定 <code>-g</code> 选项来产生本地的符号信息。微软的做法更方便，但也受其限制。</p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/remote-debugging-using-windbg">内核调试器协议</a>：用专门的协议与目标系统通信，支持调试器在不同的机器上运行，从而调试另一台机器上的系统。</p>
+</li>
+</ul>
+<h3 id="122-使用方式"><a class="markdownIt-Anchor" href="#122-使用方式"></a> 1.2.2 使用方式</h3>
+<p>WinDbg 提供了 GUI 和命令行，语法与 GDB 不同，但功能相似，还提供了脚本功能，以及与 Windows 深度集成的特性，如分析 kernel mode 和 dump 文件。</p>
+<h2 id="13-跨平台-没用过的-lldb"><a class="markdownIt-Anchor" href="#13-跨平台-没用过的-lldb"></a> 1.3 跨平台、没用过的 LLDB</h2>
+<h3 id="131-原理"><a class="markdownIt-Anchor" href="#131-原理"></a> 1.3.1 原理</h3>
+<p><a target="_blank" rel="noopener" href="https://lldb.llvm.org/use/tutorial.html">LLDB</a> 是一个模块化的 debugger，支持 C、C++ 以及其他语言，并且跨平台。LLDB 使用 LLVM 的一些组件作为其后端，比如 JIT 编译的代码调试等。LLDB 的原理同样基于控制和检查进程的执行，但它基于 LLVM。</p>
+<ul>
+<li>用 LLVM 的代码生成工具来优化调试信息的生成和使用。</li>
+<li>提供了脚本接口，尤其是 Python，可编写脚本来扩展调试器。</li>
+</ul>
+<h3 id="132-使用方式"><a class="markdownIt-Anchor" href="#132-使用方式"></a> 1.3.2 使用方式</h3>
+<p>LLDB 与 GDB 相似，但有自己的一套扩展。LLDB 还可以集成到 IDE 中，如 Xcode 或 Visual Studio Code，提供 GUI 调试的功能。</p>
+<h1 id="2-summary"><a class="markdownIt-Anchor" href="#2-summary"></a> 2. Summary</h1>
+<ul>
+<li>
+<p>都是 debugger，基本原理都是通过控制程序的执行，来提供查看和修改内存、寄存器等能力。</p>
+</li>
+<li>
+<p>GDB 和 LLDB 是传统的调试模式，而 WinDbg 提供了更加深入的系统级调试。</p>
+</li>
+<li>
+<p>LLDB 使用了 LLVM 的现代架构，在某些方面比 GDB 有更好一些的性能和现代的特性。</p>
+</li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 118k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>

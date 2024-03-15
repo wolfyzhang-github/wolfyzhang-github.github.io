@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@300&display=swap" rel="stylesheet">
+    <title>
+        
+            从系统角度解析 AbstractMachine |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            <div class="post-title">
+                <h1>从系统角度解析 AbstractMachine</h1>
+            </div>
+            <div class="post-meta">
+                <i>Published: </i>
+                <span class="post-date">
+                    2023/07/29
+                </span>
+                <i>Updated: </i>
+                <span class="post-updated">
+                    2024/03/15
+                </span><br/>
+                <i>Words: </i>
+                <span class="post-updated">
+                    4.1k
+                </span>
+            </div>
+            
+            
+            <div class="post-content">
+                <blockquote>
+<p>All problems in computer science can be solved by another level of indirection. — Butler Lampson</p>
+</blockquote>
+<h1 id="1-问题背景"><a class="markdownIt-Anchor" href="#1-问题背景"></a> 1 问题背景</h1>
+<p>能够自己亲手实现自己的玩具 OS、编译器和 CPU 可能是每个对计算机科学有兴趣的同学的愿望。三者互不隶属，又交叉配合，实现了软硬件的统一，为应用程序运行提供了完整的抽象屏障和环境支持。</p>
+<p>但这不是一件简单的事情。甚至于某种程度上来说，单独实现这三者中的每一部分都不是特别难，而能够将三者结合为一个完整的软硬件系统，才是最关键的问题。</p>
+<p>行文简洁起见，下文假设目标指令集均为 RISC-V。</p>
+<h2 id="11-以南大课程实验的设计为例"><a class="markdownIt-Anchor" href="#11-以南大课程实验的设计为例"></a> 1.1 以南大课程实验的设计为例</h2>
+<p>NJU CS 参考 UCB、MIT 等国外顶级院校的 EECS 课程，构建了一套让学生 <strong>从零开始实现一套简易计算机系统</strong> 的上下衔接的实验项目，是谓 <a target="_blank" rel="noopener" href="https://github.com/NJU-ProjectN">Project N</a>。</p>
+<p>Project N 主要包括四个部分，分别是 NCC (NJU C Compiler)、Nanos (Nanjing U OS)、NOOP (NJU Out-of-Order Processor) 和 <a target="_blank" rel="noopener" href="https://github.com/NJU-ProjectN/nemu">NEMU (NJU EMUlator)</a>，依次对应编译原理、操作系统、组成原理和系统基础四门课程的配套实验。这些课程实验的具体信息随时间可能会有变动，我本身也不是南大学生，不过，总体上应该不会有大范围的改动，比如说操作系统课现在的大实验可能不再叫 Nanos，但实现的一定是一个简易的 OS。</p>
+<p>其中，NCC 和 NEMU 是应用层软件，建立在现有成熟 OS（往往是 Linux）之上，依赖于 OS 提供的 API 和运行时库；NCC 将 C 语言代码转换为 RISC-V 的二进制目标代码，NEMU 则在软件层面上仿真出 RISC-V 的部分或全部功能。Nanos 依赖于具体架构，所以不可避免地要硬编码一些 RISC-V 汇编，尤其是在系统启动和初始化阶段；Nanos 可提供简化的程序运行时环境。NOOP 则是 RISC-V 的具体实现，能在硬件上实际实现该指令集的部分或全部功能。</p>
+<p>若要达成「上下衔接」的目标，即：NCC 编译出的程序可以运行在可选 Nanos 支持的 NEMU 和 NOOP 上，如上述，我们说是不容易的。</p>
+<p>具体来说，这个目标需要同学先通过 NEMU 在模拟器层面对计算机系统有一个整体上的理解，再实现 NOOP，在硬件上用 HDL 构造出自己的 CPU，但实际上事情在这里就复杂了起来 —— 如果需要为后续的 Nanos 做好准备，那么此时的 NOOP 处理器就必须实现特权指令支持，包括一系列的应用程序不可见的寄存器和控制逻辑，特权指令为 OS 的内核态提供了硬件支持。所以，如果想一步到位，不必后面再返工，那么这个时候最好一鼓作气把特权指令都做出来。为了区分，这里把没有特权指令支持的处理器称作「ACPU（应用处理器）」，有特权指令支持的叫做「SCPU（系统处理器）」。</p>
+<p>如果实现了 ACPU，其实也就没什么必要再去实现 Nanos 了，因为 ACPU 本身硬件上不支持内核态，也就无从谈起 OS。如果实现了 SCPU，那么可以继续去实现 Nanos。不过，也如上述，Nanos 是依赖于具体架构的，尤其在启动阶段是要硬编码汇编的，不过我们在一开始就通过约定的方式把架构限制成了唯一的 RISC-V，规避了这个问题，但这并不代表它在后面不会再出现。但是，不像是架构的问题可以通过约定的方式来简单绕过一样，系统调用接口的设计可以参照现有的 Unix 系统，可 libc 这样的运行时环境再去完整实现一遍的难度和工作量大且不必要，哪怕用嵌入式的 newlib 而不是通用的 glibc，也需要对 Nanos 的系统调用接口设计做「钦点」式的「定向」设计。否则，没有 libc 支持，写出的 OS 也是一个定义上也不能算完整的 OS。一个可行性相对来说比较高的做法是，只实现一小部分的 libc，且这部分 libc 和 Nanos 的系统调用接口相匹配，如此也契合我们学习的目的。</p>
+<p>好的，我们现在实现了 RISC-V 架构的 NOOP SCPU 和 Nanos，且 Nanos 可以直接用 RISC-V 的交叉编译工具链编译为 bin 或 hex 文件给 NOOP SCPU 来加载执行。接下来，我们就可以再根据我们 Nanos 的系统调用接口等 ABI 上的定义内容、运行时环境 libc 的具体支持细节和 NOOP SCPU 的硬件特性（比如支不支持寄存器重命名），来实现我们的 NCC 编译器了，当然这款编译器也要遵循 RISC-V 的 ABI 接口。参照 C 标准，我们最终可以实现出一款将 C 程序编译为依赖 Nanos 系统调用和其它运行时环境（比如 libc 是否完整）的 RISC-V 可执行文件的编译器程序。</p>
+<p>真是一段漫长的旅程。</p>
+<hr />
+<p>问题核心在于，Nanos 很难提供从 RISC-V 到有 libc 的 C 运行时环境的支持，二者的跨越对 Nanos 来说太大了。</p>
+<p>问题明晰了，解决方案也就随之出炉 —— 要么，使得 Nanos 补全 R-P 间的抽象，即将 Nanos 完善成一个真正意义上「能用」的 OS；要么，加入一个新的抽象层，帮助 Nanos 实现 R-P 间的跨越。</p>
+<p>清华同学的 <a target="_blank" rel="noopener" href="https://github.com/rcore-os/rCore">rCore</a> 在某种程度上实现了上述第一种解决方案：兼容 Linux 的系统调用；而 NJU 的做法，则是为第二个解决方案开发出了一个实现，即 <a target="_blank" rel="noopener" href="https://github.com/NJU-ProjectN/abstract-machine">AbstractMachine</a>（下文称 AM）。</p>
+<h2 id="12-核心问题"><a class="markdownIt-Anchor" href="#12-核心问题"></a> 1.2 核心问题</h2>
+<h1 id="2-hal-层的思想"><a class="markdownIt-Anchor" href="#2-hal-层的思想"></a> 2 HAL 层的思想</h1>
+<h2 id="21-把硬件和接口解耦"><a class="markdownIt-Anchor" href="#21-把硬件和接口解耦"></a> 2.1 把硬件和接口解耦</h2>
+<h2 id="22-业内的类似实现"><a class="markdownIt-Anchor" href="#22-业内的类似实现"></a> 2.2 业内的类似实现</h2>
+<h3 id="221-stm32-的-hal-库"><a class="markdownIt-Anchor" href="#221-stm32-的-hal-库"></a> 2.2.1 STM32 的 HAL 库</h3>
+<h3 id="222-windows-与-apci"><a class="markdownIt-Anchor" href="#222-windows-与-apci"></a> 2.2.2 Windows 与 APCI</h3>
+<h3 id="223-net-的跨平台实现"><a class="markdownIt-Anchor" href="#223-net-的跨平台实现"></a> 2.2.3 .NET 的跨平台实现</h3>
+<h1 id="3-abstractmachine-的实现"><a class="markdownIt-Anchor" href="#3-abstractmachine-的实现"></a> 3 AbstractMachine 的实现</h1>
+<h2 id="31-主要代码结构"><a class="markdownIt-Anchor" href="#31-主要代码结构"></a> 3.1 主要代码结构</h2>
+<h2 id="32-与-nemu-结合"><a class="markdownIt-Anchor" href="#32-与-nemu-结合"></a> 3.2 与 NEMU 结合</h2>
+<hr />
+<p><em>参考来源</em></p>
+<p><a target="_blank" rel="noopener" href="https://jyywiki.cn/OS/AbstractMachine/index.html">AbstractMachine：抽象计算机</a></p>
+<p><a target="_blank" rel="noopener" href="https://s4plus.ustc.edu.cn/_upload/article/files/05/ff/cce7c4694b97a01489dea9daa1a9/bbff49ab-19fe-4bc5-b105-8ac63232a75d.pdf">从 mov 指令到仙剑：通过 NEMU 构建简单完整的计算机系统</a></p>
+<p><a target="_blank" rel="noopener" href="https://acs.ict.ac.cn/xshd/202203/P020220330640497200786.pdf">南京大学 计算机系统能力培养探索与实践</a></p>
+<p><a target="_blank" rel="noopener" href="https://nju-projectn.github.io/ics-pa-gitbook/ics2023/">南京大学 计算机科学与技术系 计算机系统基础 课程实验 2023</a></p>
+<p>技术文章，没有故事，没有具体代码，只有实现思路和个人感悟的记录。考虑到一些因素，代码会有选择地进行特定渠道的公开。</p>
+<h1 id="0-pa0"><a class="markdownIt-Anchor" href="#0-pa0"></a> 0 PA0</h1>
+<p>作用是引入 Linux 实验环境和 PA 框架代码，以装系统为主线，对实验中 —— 更准确地说，是 Linux 技术栈中 —— 常用的一些工具进行了方向性的介绍。例如，通过对框架代码进行一个简要的介绍，介绍了 Git、Makefile、Vim 和 GDB 等工具。</p>
+<p>如果是老法师，这些东西确实太过基础，扫一眼命令基本就能明白文档的设计目的；而对于 Linux 新手，那这些内容也确实需要时间来消化。</p>
+<p>PA0 对我来说没什么特别的难度，基本是一路平推。</p>
+<h1 id="1-pa1"><a class="markdownIt-Anchor" href="#1-pa1"></a> 1 PA1</h1>
+<p>基本上是通过一个简易调试器的实现来熟悉框架代码，同时也算是编程基础的热身。</p>
+<p>阅读源码的过程，也是不断发现对 C 语言的犄角旮旯特性理解得不够深刻的过程，时常要拿出《the c programming language》翻翻看看。有些特性是直接忘干净了，一看就似曾相识，言外之意就还是应用的不那么多，不然也不会忘。</p>
+<p>完成 PA1 带给我最大的感受就是，我的编程基础（包括 C、数据结构、算法，等等）很不扎实！其次的感受就是，只要多加练习，补上来的速度也很快！</p>
+<p>实验文档先给出了一些用到的 POSIX 库函数，如此一来，<em>解析命令</em>、<em>单步执行</em>、<em>打印寄存器</em> 和 <em>扫描内存</em> 这些小 case 也就很容易实现了，逻辑上几乎就是单纯调框架代码给出的 API，有些地方可能需要按照函数声明来补全一些定义。</p>
+<p>而后面的一些相对不那么直白的代码实现上，就不那么容易了…… 我在 <em>表达式求值</em> 上卡了一段时间。</p>
+<p>切分 token 的逻辑很简单，相应的函数实现也容易理解，补全框架代码自然而然，但是递归求值这一部分我停滞了。隐隐约约，只记得括号匹配、表达式求值是栈的两个应用算法，看框架代码一眼看不明白，进而心态上也就没了耐心。之后，专门去看了看对应的理论定义和样例代码实现，又回过头来努力耐着性子重复看实验文档给出的思路，经过一番并不顺利的调试后，终于算是解决了这个问题。</p>
+<p><strong>数据结构和算法的基本功不扎实，后面终归还是要找回来的</strong>。</p>
+<p>而有了前面的铺垫，后续的以链表为主要实现方式的监视点写起来就容易多了，基本就是按照前面几个命令用了多次的：处理参数、执行对应命令和返回值三部曲。</p>
+<h3 id="11-上手复杂项目"><a class="markdownIt-Anchor" href="#11-上手复杂项目"></a> 1.1 上手复杂项目</h3>
+<p>NEMU 算是我至今为止深入接触的最「复杂」的项目了，涉及到的配置和函数逻辑众多，一下子展开确实脑容量不太够。怎么办？文档提供了一系列建议来帮助我这样的蒟蒻来上手理解类似的「复杂」代码。</p>
+<p>首先，从高度抽象的 Makefile 入手，把抽出来的折叠变量和参数统统展开，输出最终执行的命令，以此来了解整个项目的代码结构，从最终的编译过程来了解整个项目「是怎么跑起来的」。</p>
+<p>通过这种方式，可以简要地了解 Makefile 提供的伪目标具体对应什么样的命令实现，可以从参与编译的文件列表、展开顺序和编译器命令中了解到项目代码是按照怎样的逻辑结构来组织的。</p>
+<p>其次，可以通过 strace 这类行为追踪工具来笼统地确定程序运行过程中究竟做了什么，但这种方式对 NEMU 这类系统模拟器来说不是特别适用，更适合用来对另外一类着重于和系统调用打交道的工具类程序做踪迹追踪。在同期开发 MIT S6.081 xv6-riscv 中一些用户空间的程序时，很有效果！</p>
+<p>最后，对我来说最有用的两个方法。其一，简单粗暴有效的纸笔展开。把主要的代码逻辑以自己能理解的符号写在纸上，然后按照程序逻辑在极其自由的二维空间中进行模拟运行，并不断补充各种程序细节，以此来由浅入深地熟悉这个巨大状态机。对待一些复杂一些的宏的时候，此法亦有效。其二，用 GDB 等调试工具进行代码的动态阅读。本身代码是静态的，死的，上来就人肉阅读属实是用人脑的短期记忆去挑战这个巨大状态机，现代智人不应该干这种事情，而如果有了调试器的加持，就可以轻易捕捉代码的动态行为，让逻辑活起来，进而阅读动态的代码，这才是现代智人要去追求的工作方式。</p>
+<p>可以这么说，我对 NEMU 代码逻辑的理解一半以上来自 GDB，四成来自纸笔展开，一成来自 Makefile 行为。</p>
+<p>框架代码安排的两个小题，只要用 GDB 一路追踪下去就能轻松解决。</p>
+<h3 id="12-几种调试方法"><a class="markdownIt-Anchor" href="#12-几种调试方法"></a> 1.2 几种调试方法</h3>
+<p>PA1 过程中我意识到一个有趣的问题 —— 遇到一些可预测到的异常输入或者错误的条件码时，究竟是直接调 assert 拦截掉非预期情况以后就 panic 掉呢，还是用 log 打印出具体一些的错误信息然后程序继续进行呢？比如进行扫描内存操作的时候给出了一个不存在的地址，此时直接 assert 貌似有点过激了，因为这种情况完全可以在非法输入进入程序的执行逻辑之前就过滤掉，完全可以在 log 出错误信息以后再进入后续逻辑。</p>
+<p>阅读后续的实验文档发现，其实这个问题业内给出了比较系统的解决方案了:</p>
+<ul>
+<li>
+<p>Fault: 实现错误的代码，例如 if (p = NULL)</p>
+</li>
+<li>
+<p>Error: 程序执行时不符合预期的状态，例如 p 被错误地赋值成 NULL</p>
+</li>
+<li>
+<p>Failure: 能直接观测到的错误，例如程序触发了段错误</p>
+</li>
+</ul>
+<p>调试的过程就是从 Failure 逐步回溯 Fault 的过程。</p>
+<p>由此，我目前对这个问题的理解是：<strong>assert 是对做不到「不言自证」的代码的补强，也就是阻断可能的 fault 的长效传播，在逻辑上拦截可能出现的 error。log 则是将程序运行过程中的一些 detail 进行输出，也即对程序运行的逻辑过程进行观察。当出现 failure 时，log 可以从 error 上来帮助锁定异常代码 fault 的位置。</strong>。</p>
+<h3 id="13-最小系统的重要性"><a class="markdownIt-Anchor" href="#13-最小系统的重要性"></a> 1.3 最小系统的重要性</h3>
+<p>实验文档中放了一些蓝框思考题和选做题，每逢这时我的强迫症就犯病了：总有一种想要按照最完善的功能要求去设计好代码架构的冲动，可是，囿于能力和时间等各种因素，这往往不现实。</p>
+<p>这个时候就深刻体现「最小系统」的重要性了。</p>
+<p>回想之前学习嵌入式开发，乍一上手一款芯片是真的很绝望，低级一点的 51 还好说，高级一些的像是 STM32 系列，各种寄存器和中断机制一开始学习起来真是如坠五里雾中，包括后面去读 RTOS 的源码来试图 Hack 它们的时候，那种体验着实相当难忘，以至于很久一段时间一面对新事物就会出现莫名其妙的抵触心理。后来逐渐摸索到一些技巧，加之老师也不断强调「别管那么多，先让它跑起来，先跑起来再说」，也就慢慢地有了自己的一些经验和体会在，不过并不深刻。也正像老师说的那句，「有点野路子的感觉，都在自己摸」。</p>
+<p>芯片先配一个样例项目，跑起来 HelloWorld 或者 Blink，以对其背后的开发工具链有一个简要但清晰直观的认知；之后从其（硬件）最小系统入手，结合启动流程，来对它各个组件和外围硬件支持有一个逻辑上比较完善、内容上不见得完整的了解。这些了解清楚以后，基本上写程序就是工程活了。</p>
+<p>这次做 PA 是把这种模糊的感觉给明晰了。</p>
+<p>优雅接口，龌龊实现。</p>
+<h3 id="14-心态心态还是心态"><a class="markdownIt-Anchor" href="#14-心态心态还是心态"></a> 1.4 心态！心态！还是心态</h3>
+<p>毕业季我看完了《士兵突击》，我觉得这部经典影片放在这里就可以很有戏剧张力地表达出我想要表达的意思。我是许三多，我也是成才，我期望着成为袁朗，路还很长，所以需要去找属于自己的老 A。</p>
+<h1 id="2-pa2"><a class="markdownIt-Anchor" href="#2-pa2"></a> 2 PA2</h1>
+<p>从概念上来说，就是实现一个解释型的指令执行模拟器，这其实没什么特别的难度，QEMU 也好其他的一些模拟器也好都开了个好头（尤其是 YEMU）。</p>
+<p>但是具体实现上，不得不说 PA 框架代码的质量还是很高的，而且后期和 AM 结合，让我深刻体会了一下什么叫「把基础的东西玩出花来」。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 118k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>

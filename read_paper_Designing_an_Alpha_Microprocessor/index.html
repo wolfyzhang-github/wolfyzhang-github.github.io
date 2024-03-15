@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@300&display=swap" rel="stylesheet">
+    <title>
+        
+            读论文：Designing an Alpha Microprocessor |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            <div class="post-title">
+                <h1>读论文：Designing an Alpha Microprocessor</h1>
+            </div>
+            <div class="post-meta">
+                <i>Published: </i>
+                <span class="post-date">
+                    2024/02/25
+                </span>
+                <i>Updated: </i>
+                <span class="post-updated">
+                    2024/03/15
+                </span><br/>
+                <i>Words: </i>
+                <span class="post-updated">
+                    2.7k
+                </span>
+            </div>
+            
+            
+            <div class="post-content">
+                <blockquote>
+<p>source link: <a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/774915">https://ieeexplore.ieee.org/document/774915</a></p>
+</blockquote>
+<p>文章主要内容是 Compaq (DEC) 设计 Alpha 系列处理器的流程，作者是 <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/matt-reilly-939162/">Matthew Reilly</a>，老爷子 1983 年在 CMU 毕业以后在 Compaq (DEC) 工作了 18 年，直到 2001 年才去了 Intel，90 年代 Alpha 处理器那波澜壮阔的历史他可算是完整经历了。文章发在 99 年，比我年龄还大，侧面也可以看下，美国在 90 年代的时候，可以完成 Alpha 这样可以推动业内水平的产品设计的团队，有什么样的工作状态，我可喜欢看这个了。</p>
+<p>开篇作者就交代了一个很 general 的比喻，说他们的设计流程像是 a journey on a rocket，一开始的时候心气高也常遇问题，之后渐入佳境，沉没成本也导致了 no turning back，就沿着这条既定路线走下去了，到后期基本就是保持工作状态，速度稳定，保持进度，直到 deadline 出现，大家赶个小工，项目结束。实际上可能很多人做事都类似，一开始的时候对「搞个大新闻」怀有期待但是对问题了解不够容易出岔子，但随着问题的不断解决，人对项目本身的理解也逐渐深入，探索踩坑的工作基本做完了，就成了堆进度的搬砖活，当然最后还需要 deadline 来推一把，不然没什么动力一直高效率地搬砖。</p>
+<p>而具体来说，Alpha 处理器的设计流程有十几个不同的环节，这些环节也不是简单的线性关系，重叠和并行都会有。</p>
+<p>如果是去微软之前的我，可能会觉得设计流程基本上是一个纯技术问题，不怎么涉及商业上的因素，但现在我完全不这么认为了：实际上任何一款面向市场的产品都势必要去做一些商业上的考虑（市场、现状甚至说竞品），而具体怎么去把技术和商业进行 trade off，这就见功力了。某种程度上，我觉得，工作经验的意义也在于此。</p>
+<h1 id="1-product-definition"><a class="markdownIt-Anchor" href="#1-product-definition"></a> 1 PRODUCT DEFINITION</h1>
+<p>像前文所说，产品本身的规划或者说定义，早就不仅仅是技术人员去提一个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">n\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord mathdefault">n</span><span class="mord">%</span></span></span></span> 的性能增长这么简单，而是已经值得一个专门的 role 叫 PM 去做了，甚至 PM 内部都发展出了一系列的工作方法和方法论。</p>
+<p>根据文章内容，作者团队的产品定义，是技术和销售先开个小会，根据 market, current research, competitors’ plans, and technology road maps，定下新款处理器的 performance goals 和 best feature set。但是我们说像是处理器这样的庞大项目，周期可能就好几年（五年以上），你几年之前定下来的目标可能在几年后完全被市场否定，比如说几年之后的 PC 是要发力支持 speech recognition 还是 real-time animation？多核要不要做？做的话做到什么程度？客户究竟想要什么？所以，你还要做一个较小周期内的重复 sync 和 update。这个反馈流程的第一步就是再去收集信息，拉数据，技术、销售和管理层每年都会再去开几十场各种各样的研讨会以及内部会，目的就是 get 到市场信息，再去 update 进下一代产品的规划中。</p>
+<p>一般这种业内信息相当不容易获取，搞不好就要出商业间谍，想拿到高价值的数据也很困难。我之前在微软的时候，组里就花费了不少人力去企查查这类平台上 copy-paste 客户数据再进行后续使用，即便氪金买了授权，也很难直接拿到自己想要的结构化的格式数据。搜集原始数据困难，从数据供应商那里拿到自己需要的数据也不容易。这很大程度上不是技术问题，而是组织问题，甚至是政治问题。</p>
+<p>而有趣的是，作者口中的 90 年代的硅谷处理器设计公司之间却巧妙地达成了一种透明的 balance：客户想知道你们企业未来要发布的新产品大体上都有啥特性，你敢得罪客户？你敢说我们的东西达不到竞品的水准？除此之外，员工还能人肉带着你的内部信息跳槽，人才流动性相当强。在这种情况下，没什么秘密好去隐瞒，你也没办法隐瞒，大家不互相吹牛去哄股东和客户开心、再疯狂压榨技术人员让他们去填坑就不错了。同时，在产业链的上下游上，也比较透明，半导体行业会定期发预测报告，给制造商提供一些数据支持。</p>
+<p>这个流程跑通以后，会定义一个类似「宪章」的东西，has outlined the design task, enumerated the target markets, suggested likely technology features and resources, and (of course) defined the performance goals。给出的这个定义依赖于 circuit designers, architects, marketeers, or researchers 们的 experience，也是他们（和他们的 broad experience）最终 finding a balance between market desires, available technology, and time-to-market。</p>
+<h1 id="2-exploring-the-architectural-design-space"><a class="markdownIt-Anchor" href="#2-exploring-the-architectural-design-space"></a> 2 EXPLORING THE ARCHITECTURAL DESIGN SPACE</h1>
+<p>产品定义给出后，实际上往往是一个 draft 的定义给出后，做 arch 的人就该忙活起来了。按照 top-down 的设计原则，首先要规定一些比较大的设计原则，也就是规定 —— 或者说回答一些关键的问题，来大体上描述出未来要做一个什么样的东西。作者文中给出了 Alpha 处理器设计团队考虑的几个大的问题：</p>
+<ul>
+<li>
+<p>How can the project best use a fixed die area to meet product requirements?</p>
+</li>
+<li>
+<p>How many functional units does it need?</p>
+</li>
+<li>
+<p>How much on-chip memory?</p>
+</li>
+<li>
+<p>What policies, structures, and algorithms will take maximum advantage of the processor’s resources?</p>
+</li>
+</ul>
+<p>一开始的时候，这个 arch 团队秉持的也是精英原则，大约「半打」的 architects 在 advanced development and research team 的支持下会试着来回答上述这些问题。实际上 arch 团队和 PM 们往往同时干活，甚至有些 architect 身兼 PM。</p>
+<p>处理器开发不像软件开发，一个 idea 从提出，到落地成实际的 chip 来验证可行性，其中的金钱和时间成本远超想象。那怎么办呢？模拟。arch 团队用一套软件模拟器来分别模拟、测试处理器各主要结构及其特性，这套模拟器称作 performance model。这套 model 本身也是一个重要的软件项目，要有专人去设计和维护。hhh 所以我想去的那个岗位实际上就是做这个活的。</p>
+<p>但是模拟终归有模拟的局限性，不是所有问题都能通过模拟得到答案，那么 arch 组再去回归思想实验：疯狂开会，在白板上写写画画，以及和 circuit designers 撕逼。思想实验结束后，类似以下几个问题的答案就应该出来了：</p>
+<ul>
+<li>
+<p>How many integer units will this processor have?</p>
+</li>
+<li>
+<p>How many floating-point units and memory ports?</p>
+</li>
+<li>
+<p>What does the pipeline look like?</p>
+</li>
+</ul>
+<p>这几个主要的问题已经对未来处理器的架构给出了一个概念性的模糊描述，但最终还是需要一个具体的设计规范来继续实现，不然就乱套了。所以，接下来，就可以沿袭这个模糊概念绘出图来，具体给出未来处理器的 complete performance model 和 block-level structure，那个时代会把这些东西写成 functional-unit specifications, block diagrams, charts, tables, memos, and interface definitions，现在估计也大差不差，载体上我觉得应该不会有太大变化。</p>
+<p>可以发现，绘图的过程其实相当重要，几乎是 arch 设计的最核心的环节，工作量大且繁杂，还会有不同组件之间的牵连关系。出于管理等的考虑，arch 团队把整个处理器划分成 Box，不同的 Box 有不同功能，比如可以拆成取指兼译码的 IBox、执行整数指令的 EBox、执行浮点数指令的 FBox 和执行内存操作的 MBox。同样按照 top-down 的原则，小 Box 内部还可以再拆下去，最后具体到人，而 Box 本身的工作也不止绘图，后续的 development、 design 和 testing 也都需要不同 team 的支持，所以这个 Box 最后会和不同 team（circuit design, layout, and the verification teams）内部的小 team 来绑定，最后每个 Box 也都可以划分出自己的 team——team 的成员又来自不同的 team。</p>
+<p>这个 Box 的划分工作可相当不好做，但又极其重要。技术上，Box 和 Box 之间需要交互，而处理器又是一个高度复杂的需要交互的整体，拆不好的话在边界处很容易出现海量的 bug。管理上，需要把不同的人绑定到不同的 Box 上，而不同 Box 的实现难度又不一样，所以可能需要 test 的资源来进行支持，也需要协调各方最终达成一个合理的平衡点；另外，不同 Box 的 team 之间也会有和 Box 本身一样涉及到彼此合作的部分，而合作不见得都是好事，team 和 team 之间有可能会发生利益冲突，也有可能会产生善意的竞争，总之不是简单的各扫门前雪的关系。例如说，an operation down-stream in the execution unit may need support from a feature in the instruction fetch unit. The fetch unit’s team has a set of performance targets and project mile- stones that they intend to meet. If the new feature raises the risk of missing a fetch-unit performance goal, how is this to be balanced against the schedule risk taken by the execution unit?</p>
+<p>team 和 team 之间 argue 起来，也是靠拉 meeting、来回 cc/fwd email、stacks of charts and graphs、hours and days of simulation and an occasional heated debate 来最终解决这些问题。一个 typical 的 arch 组的员工，得有个 computer engineering 的学位。虽然经验水平不一样，但是要么有 circuit design、 verification or systems architecture 的行业内经验，要么有个 computer engineering 的 PhD。</p>
+<p>哎，arch 还是吃背景的，毕竟对能力要求相当高，不过，回过头来说，即便是这么多的 high-level 人才扎堆的地方，也还是要 argue，argue 起来也和微软一样靠那几件套，果然啊，问题归根到底还是人的问题。</p>
+<h1 id="3-technology-development-and-foundry-specification"><a class="markdownIt-Anchor" href="#3-technology-development-and-foundry-specification"></a> 3 TECHNOLOGY DEVELOPMENT AND FOUNDRY SPECIFICATION</h1>
+<h1 id="4-feasibility-studies"><a class="markdownIt-Anchor" href="#4-feasibility-studies"></a> 4 FEASIBILITY STUDIES</h1>
+<h1 id="5-tool-development"><a class="markdownIt-Anchor" href="#5-tool-development"></a> 5 TOOL DEVELOPMENT</h1>
+<h1 id="6-rtl-modeling"><a class="markdownIt-Anchor" href="#6-rtl-modeling"></a> 6 RTL MODELING</h1>
+<h1 id="7-functional-verification"><a class="markdownIt-Anchor" href="#7-functional-verification"></a> 7 FUNCTIONAL VERIFICATION</h1>
+<h1 id="8-schematic-design"><a class="markdownIt-Anchor" href="#8-schematic-design"></a> 8 SCHEMATIC DESIGN</h1>
+<h1 id="9-logic-verification"><a class="markdownIt-Anchor" href="#9-logic-verification"></a> 9 LOGIC VERIFICATION</h1>
+<h1 id="10-layout"><a class="markdownIt-Anchor" href="#10-layout"></a> 10 LAYOUT</h1>
+<h1 id="11-circuit-verification"><a class="markdownIt-Anchor" href="#11-circuit-verification"></a> 11 CIRCUIT VERIFICATION</h1>
+<h1 id="12-fabrication"><a class="markdownIt-Anchor" href="#12-fabrication"></a> 12 FABRICATION</h1>
+<h1 id="13-debug"><a class="markdownIt-Anchor" href="#13-debug"></a> 13 DEBUG</h1>
+<h1 id="14-why-does-this-work"><a class="markdownIt-Anchor" href="#14-why-does-this-work"></a> 14 WHY DOES THIS WORK?</h1>
+<h2 id="141-technical-factors"><a class="markdownIt-Anchor" href="#141-technical-factors"></a> 14.1 Technical factors</h2>
+<h2 id="142-cultural-factors"><a class="markdownIt-Anchor" href="#142-cultural-factors"></a> 14.2 Cultural factors</h2>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 118k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>

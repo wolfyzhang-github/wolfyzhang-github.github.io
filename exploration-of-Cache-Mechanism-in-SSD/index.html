@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@300&display=swap" rel="stylesheet">
+    <title>
+        
+            SSD 中 Cache 机制的探索 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            <div class="post-title">
+                <h1>SSD 中 Cache 机制的探索</h1>
+            </div>
+            <div class="post-meta">
+                <i>Published: </i>
+                <span class="post-date">
+                    2022/08/06
+                </span>
+                <i>Updated: </i>
+                <span class="post-updated">
+                    2022/08/07
+                </span><br/>
+                <i>Words: </i>
+                <span class="post-updated">
+                    3k
+                </span>
+            </div>
+            
+            
+            <div class="post-content">
+                <p>研究某个东西时，我习惯于一手抓抽象概念一手找个具体样例，我机器出厂内置一块 Samsung 1T PM981a SSD（970 EVO Plus 的 OEM 版本），这次研究的对象又是 SSD，所以自然就以 Samsung 970 EVO Plus 为样例下手。</p>
+<p>从 <a target="_blank" rel="noopener" href="https://www.samsung.com/cn/memory-storage/nvme-ssd/970-evo-plus-nvme-m-2-2tb-mz-v7s2t0bw/">官方文档</a> 上我们可以获取到如下有效信息：</p>
+<table>
+<thead>
+<tr>
+<th><strong>Field</strong></th>
+<th><strong>Detail</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>接口</td>
+<td>PCIe Gen 3.0 x4, NVMe 1.3</td>
+</tr>
+<tr>
+<td>NAND 闪存</td>
+<td>三星 V-NAND 3-bit MLC</td>
+</tr>
+<tr>
+<td>控制器</td>
+<td>三星内部控制器</td>
+</tr>
+<tr>
+<td>高速缓存</td>
+<td>三星 2GB 低功耗 DDR4 SDRAM</td>
+</tr>
+<tr>
+<td>TRIM 支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>垃圾回收</td>
+<td>自动垃圾回收算法</td>
+</tr>
+</tbody>
+</table>
+<p>可以看到此处的 Cache 直接就是 2GB 的 DDR4 SDRAM，说白了就是内存颗粒，和 Flash 的容量比例大约在千分之一，结合 RAM 和 ROM 在计算机系统结构上的特性，我们有理由怀疑在这儿放个 Cache 就是为了缓解 PCIe 等高速总线的速率和 V-NAND Flash 数据读写速率不匹配的问题，换句话说就是个基于局部性原理实现的数据缓冲区。</p>
+<p>但是我在 SSD 方面的知识储备相当少，所以这样的直觉显然是不可靠的，经过一番对相关资料的查阅，发现其实秘密就隐含在其余的几个参数中：3-bit MLC、TRIM 和垃圾回收。</p>
+<h2 id="一dram"><a class="markdownIt-Anchor" href="#一dram"></a> （一）DRAM</h2>
+<p>从下面这张去掉贴纸的渲染图中我们可以很清晰地看到 Samsung 970 EVO Plus 的主控、DRAM Cache 和两颗 V-NAND Flash。</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="images/Samsung_970_EVO_Plus_NVMe_SSD.jpg" alt="ssd" /></p>
+<p>NAND Flash 由多层下面这样的 Die Chip 堆叠而成，可以看到，每层 Die Chip 有若干个区 Plane，而每个 Plane 又有若干块 Block，每个 Block 则由若干个「横向」Page 构成，Page 再细分就是若干个存储位字段的浮栅晶体管了。这是早期的平面 Die Chip 的结构，后来在 2007 年 Toshiba 首次实现了 3D NAND 结构，但是第一个将其商业化大规模生产的却是 Samsung，且 Samsung 称之为 V-NAND（Vertical NAND）—— 也就是这块 970 EVO 所采用的技术。</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="images/nand-flash-die-layout.png" alt="layout" /></p>
+<p>与上图所示的平面结构相比，V-NAND 在原有的 Page 基础上实现了垂直方向上的延伸，也就是对 Page 的维度进行了扩展，而这相比原有一维的横向 Page 扩展出了一个二维平面。你可以理解为，就像楼房与平房，V-NAND 的 Block 就是在原有平面 NAND 的基础上拔高了一部分 —— 同时我们依然称之为 Block。Block 的维度只是在我们理解其寻址方式时会有影响，所以下文为简单起见一般用二维 NAND 进行解析。</p>
+<p>SSD 中使用地址解码器（Address decoder）来通过电路获取单位 Page 里浮栅晶体管所存储的位字段信息，即用特定参数的激励激活对应 Page 里的浮栅晶体管，而后通过与浮栅晶体管直接连接的上行电路获取及改变它所存储的电学特性数据，也就是位。如果是 V-NAND，那我们还需要在地址解码器（Address decoder）的基础上加上一个位线选择器（Bitline selectors）来保证 Page 编码的唯一性。举个不太恰当的例子，位线选择器就相当于坐标中新加上的一个维度。</p>
+<p>一般来说，一个不到指甲盖大小的 NAND Flash 颗粒的容量在数十 MB 到几 TB 不等，你可以想见里面有多少个浮栅晶体管，里面给如此数量的浮栅晶体管作基础设施的供电、数据传输等电路结构又是什么规模，而这还只是一个功能比较单一的存储芯片，处理器芯片实现功能的复杂程度要远远大于此类存储芯片，所以……</p>
+<p>对如此复杂且庞大的几何结构来说，一个索引是必要的基础设施，换句话说，增删改查这类高频次文件读写操作的背后必须要有一个描述「逻辑页到物理页映射」的表（Map table）支持。实际上，当 CPU 给出的数据通过直连 PCIe 或者 PCH 转接的 PCIe 通道送至 SSD 接口时，会通过主控写入 NAND Flash，这个过程中就会用到该表。用户每写入一个逻辑页就需要更改一次 Map table；当读取一个逻辑页时，SSD 则会查找 Map table 中该逻辑页对应的物理页，然后再访问 Flash 读取所要的数据。</p>
+<p>一般映射的逻辑页的大小为 4KB，物理地址的大小为 4Byte，那么一个 256GB 的 SSD 的映射表大小为：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>256</mn><mi>G</mi><mi>B</mi><mo>÷</mo><mn>4</mn><mi>K</mi><mi>B</mi><mo>×</mo><mn>4</mn><mi>B</mi><mo>=</mo><mn>256</mn><mi>M</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">256GB÷4KB×4B = 256MB</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">6</span><span class="mord mathdefault">G</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">÷</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">4</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">6</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span>，也就是说映射表的大小大约是 SSD 容量的 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>1024</mn></mrow><annotation encoding="application/x-tex">1/1024</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">1</span><span class="mord">0</span><span class="mord">2</span><span class="mord">4</span></span></span></span>—— 这基本就是 DRAM 的大小。</p>
+<p>没错，DRAM 其中一个重要作用就是存储 FTL Map table。但是，DRAM 掉电数据是会丢失的，那映射表怎么办？答案是在 SSD 掉电之前，它会把映射表写入到 Flash 中去，下次上电初始化时再重新把映射表读出来放在 DRAM 中。</p>
+<p>DRAM 另一个作用是缓解写放大（Write Amplification）。</p>
+<p>结构决定性质，SSD 中的这种微观几何结构就决定了它是以 Page 为单位来进行数据读写的，但 NAND Flash 又有个特殊之处，就是它在写入内容之后不能直接覆写，必须先擦除再覆写，而这个过程很慢。而且，擦除操作由于电路特性的影响最小单位是 Block，也就是说目前覆写只有一种方法就是先将整个 Block 的内容复制一份放到 DRAM 或者 Over Provisioning 甚至其他空闲的 Block 中，再擦除该 Block，然后一起写入该 Block 的原有内容和需要更新的 Page 内容。</p>
+<p>比如说，某 SLC SSD 其中一个 Block 中有 256 个 Page，每个 Page 可存放 4KB 数据，而所有 Page 中都已经存有数据，且都没存满，我们现在要多存入 4KB，要怎么做呢？做法就是首先将该 Block 中的所有数据复制一份，进行整合，再擦除，最后把整合好的内容合并写入该 Block 中，结果就是我们为了写入 4KB 的有效数据而造成了 1MB 的实际数据写入。这是个简化的写放大模型，实际导致写放大的因素还有很多。</p>
+<p>缓解这种写放大现象的其中一个办法就是把数据先放在 DRAM 中，等攒够一个 Page 容量时再写入到 NAND Flash 里。而且，如果某些 Block 中的 Page 里有部分已经被标记删除的无效数据，我们也需要将其进行整合，也就是垃圾回收（Garbage Collection），这个时候 DRAM 也可以作为缓冲区。</p>
+<h2 id="二slc-cache"><a class="markdownIt-Anchor" href="#二slc-cache"></a> （二）SLC Cache</h2>
+<p>上文中的 SSD Cache 我们默认是 DRAM，但实际上如果不指明语境的话，SSD Cache 还有另一种含义：SLC Cache。</p>
+<p>我们已经了解了 SSD NAND Flash 的基本结构，知道它使用浮栅晶体管来存储位字段，但我们却没具体指明一个浮栅晶体管可以存储几个位。事实上，浮栅晶体管可以粗浅地理解为一个电子的容器，SLC（Single-Level Cell），意味着每个浮栅晶体管只存放 1 位数据，靠电子状态的有或无来输出成数据，也就是最简单的 0 和 1；MLC（Multi-Level Cell），则每个存储单元可存放 2 位数据，电子量会分为高、中、低与无四种状态，转换为二进制后变成 00、01、10、11；TLC（Triple-Level Cell） ，更进一步将电子状态分成 8 种，换算成二进制的 000、001、010、011、100、101、110、111，也就是 3 位数据；新的 QLC 已经有了 16 种状态，存放 4 位数据。</p>
+<p>我们初学二进制的时候就体会到了仅仅规定两种状态的好处，此处显然 SLC 是读写速度最快、最不易出错的一种方式，同时也是对浮栅晶体管利用效率最低的一种方式，所以也最贵，消费级 SSD 很少有 SLC 的产品，大部分都是企业级 SSD 才会使用。</p>
+<p>而事实上，浮栅晶体管的物理结构都是类似的，具体的 SLC、MLC、TLC 等只是主控读写策略的不同，是我们人为规定的几种状态，换句话说，对某个具体的浮栅晶体管而言，它究竟是 SLC 还是 MLC 是主控说了算。那么，我们完全可以通过调整主控的写入策略来将一部分空闲的 Block 作为 SLC 来用，实现高速写入，待写入完毕后再将这部分缓存的 SLC 数据改写到 MLC 数据区来实际存储。只是问题在于，如果我们要写入单位大小的 MLC 数据，那么就需要动用 3 倍数量的浮栅晶体管来作为 SLC，而 SSD 中的空闲空间是有限的。所以，SLC Cache 也不是万能的，它要求 SSD 中必须有一定的空闲容量。</p>
+<p>平时我们说 SSD 或者手机最好不要把容量用得太满，否则会大幅影响性能，其实道理就是如此。</p>
+<p>如果你对 SSD 的知识储备也和我一样不是很多，那我猜这个时候你会有一个疑问，那就是如果我们异常断电的话，上文中提到的映射表岂不是会直接丢掉？确实是的，所以工程师设计了一些机制来预防这种情况（开头提到的大电容供电就是其中一种），也设计了另外一些机制来修复丢失 FTL 映射表的问题。</p>
+<p>早年间，有个很流行的梗叫「30 分钟大法」，意思是说如果 SSD 异常断电后发生掉盘（操作系统甚至 BIOS 不识别），那么可以尝试什么也不做，上电静等至少 30 分钟，再重启电脑，SSD 就有可能会自己恢复正常。实际上异常断电后的掉盘就是因为 DRAM 中的 FTL 映射表丢失导致主控不响应主板信号，但是成熟的 SSD 厂商都会在主控固件中内置 FTL 映射表重建的功能，当其丢失时，主控就会自动开始逐页扫描 NAND Flash，修复 Flash 中上个版本的 FTL 映射表。这个过程有长有短，具体要看厂商的固件性能和颗粒容量等，一般在几分钟到几十分钟不等。所以，SSD 异常断电掉盘后「30 分钟大法」或许就可以起效果。</p>
+<h2 id="三ftl"><a class="markdownIt-Anchor" href="#三ftl"></a> （三）FTL</h2>
+<p>其实，可以发现，SSD 之所以能够如此强大，我们之所以能够驯服特性这么奇怪的 NAND Flash 颗粒作为存储器，主控功不可没。</p>
+<p>主控要实现诸如 Mapping、Buffer Management、GC、WL、RAID on Chip 等等的功能，而这些功能的具体实现又要依赖复杂的软件层 Flash Translation Layer，即 FTL。</p>
+<p>由于 FTL 是 SSD 设计厂商最为重要的核心技术，因此，没有一家厂商愿意透露这方面的技术信息，并且也一直没有业内的技术规范、标准存在。现在能生产 NAND 芯片的厂家在 Wikipedia 上能查出 11 家，而能生产主控芯片和固件的就 4 家。他们各自的技术核心都在 FTL 中的各种调优上，再加上 TRIM 等等特性，这也就决定了 SSD 硬盘性能的好坏。</p>
+<p>关于 FTL 的实现，我找到一篇论文，说实话看不多懂，但是侧面也能看出 FTL 的宏大与精妙。</p>
+<p><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/abs/10.1145/1176887.1176911">A superblock-based flash translation layer for NAND flash memory</a></p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 118k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@300&display=swap" rel="stylesheet">
+    <title>
+        
+            .NET 在 freestanding 的嵌入式开发中的一个 practice |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            <div class="post-title">
+                <h1>.NET 在 freestanding 的嵌入式开发中的一个 practice</h1>
+            </div>
+            <div class="post-meta">
+                <i>Published: </i>
+                <span class="post-date">
+                    2024/02/08
+                </span>
+                <i>Updated: </i>
+                <span class="post-updated">
+                    2024/03/15
+                </span><br/>
+                <i>Words: </i>
+                <span class="post-updated">
+                    2.8k
+                </span>
+            </div>
+            
+            
+            <div class="post-content">
+                <blockquote>
+<p>之前做学生大使（Student Ambassador）的时候，要办活动，粗略研究过 Azure 的能力，发现有 IoT 和移动开发相关的东西，不过没去深挖。后来，前几个月，去微软北京 2 号楼 4 层的 MTC（Microsoft Technologic Center）蹭参观，才意识到原来微软在 IoT 方向上已经有很深厚的积累，甚至一些和 Azure 合作的老牌电气企业出品的工控板已经上星了。后来临离职，还跑去 3 层的无人超市扫荡了一圈零食来清 RE&amp;F 里的余额，当然，无人超市也是 Azure 在背后提供支持的。</p>
+</blockquote>
+<h1 id="1-based-on-computer-systems-an-introduction-to-net"><a class="markdownIt-Anchor" href="#1-based-on-computer-systems-an-introduction-to-net"></a> 1 based on Computer Systems, an introduction to .NET</h1>
+<p>background 的东西，在如今 LLM 的加持下可以高效率地做一个 overwatch，反而最核心的是去构建人本身的专业知识结构，也就是大的 system 上的东西。在做这件事上，实际上之前的搜索引擎也 OK，只是现在的 LLM 用好了效率更高。换句话说，LLM 可以特别高效地对你想知道但目前还不太知道的那些概念性的东西做一个阐释 —— 只要你对这概念的上下游有所了解，其实更多的是一个在框架里「填空」的事情，之后再形成对它的理解。</p>
+<p>在此我给出我的 prompt：</p>
+<p><em>你是一个资深软件工程师。我向你提问某项技术时，你需要以下面的思路来介绍：在计算机系统层次上，这项技术解决了什么问题？这项技术的核心概念是什么以及这些核心概念在这项技术中扮演了什么样的角色？这项技术为开发者提供了怎样的交互接口（以建立一个最小系统为例来介绍）？现在我向你提问 .NET。</em></p>
+<p>根据我的理解，.NET 实际上是一套兼容多语言的跨平台开发框架，处于 OS 之上、Application 之下，类比起来，.NET（CLR）之于 C#、F#，大体上类似于 JDK 之于 Java、Scala。同时为了开发者用起来更省事，微软还做了很多底层的封装工作。</p>
+<h2 id="11-cross-platform-development-framework"><a class="markdownIt-Anchor" href="#11-cross-platform-development-framework"></a> 1.1 cross platform development framework</h2>
+<p>说句题外话。微软自从 2014 年新任 CEO 萨提亚上台以来，开始大力摒弃鲍尔默时代的封闭风格，做跨平台的同时拥抱开源，萨提亚一就任 CEO 就发布了 iOS 版本的 office，这在鲍尔默时代简直不可想象。也正是这位印度人 CEO，在很大程度上「拯救」了微软这个商业帝国，他挥手确立的几大业务方向使得微软目前的业务结构相当多元和健康，而且把微软股票带到了全球第二的位置（偶尔还能冒个尖刷一波全球最高）。从业务角度来看，这段故事好好分析分析，也可以单独开新坑了 ^ _ ^ 。</p>
+<p>在这个大背景下，.NET 也发布了跨平台的 .NET Core（后续升级成了 .NET 的数字版本），而且直接开源。目前，微软官方都「建议所有新产品开发使用 .NET 6 或更高版本。这些较新的 .NET 版本是跨平台的，支持更多应用程序类型，并提供高性能」。</p>
+<p>那么，.NET 的跨平台特性是如何实现的捏？抽象，抽象，还是抽象！</p>
+<p>之前我做嵌入式的时候，用到 ST 家的拳头产品 STM32，上面就做了一层抽象，叫 HAL（Hardware Abstraction Layer）库，这名字相当直接，堪比开发个 OS 就叫 OS。之后，我接触到的南大 AM（Abstract Machine）环境，实际上也是在硬件上做了一层抽象，把程序和架构解耦，中间插一层 HAL。</p>
+<p>说到底，不论这个平台是 OS 还是 ISA，实际上要实现的都是一个从平台无关的代码到平台相关的编译结果之间的一对多的映射。硬件相关上可以做一层 HAL，那软件相关自然也可以做一层 PAL（Platform Abstraction Layer）。</p>
+<p>.NET Core 引入的就是 PAL，定义了与 OS 交互的一组 API。不同 OS 的具体实现可以针对这些 API 进行编写，从而实现跨平台。</p>
+<ul>
+<li><em>公共语言运行时（CLR）：CLR 是 .NET 的虚拟机，负责执行编译后的代码（称为中间语言，IL），提供内存管理、异常处理、垃圾回收等服务。CLR 使得用不同语言写的代码可以在同一个运行时环境中运行。</em></li>
+<li><em>中间语言（IL）：在 .NET 中，源代码首先被编译成 IL，这是一种与平台无关的字节码。IL 之后被 JIT 编译器转换成本地机器代码执行。</em></li>
+</ul>
+<h2 id="12-延伸支持的几种高级语言"><a class="markdownIt-Anchor" href="#12-延伸支持的几种高级语言"></a> 1.2 延伸支持的几种高级语言</h2>
+<p>// TODO</p>
+<ul>
+<li><em>基类库（BCL）：BCL 提供了一组常用的类型和函数，例如字符串处理、数据集合、IO、网络等，这是构建 .NET 应用程序的基石。</em></li>
+<li><em>语言集成查询（LINQ）：LINQ 是 .NET 中的一个创新特性，允许开发者使用类似 SQL 的查询方式来检索数据，无论这些数据来自于数据库、XML 文档还是内存中的对象集合。</em></li>
+</ul>
+<h2 id="13-net-in-embedded"><a class="markdownIt-Anchor" href="#13-net-in-embedded"></a> 1.3 .NET in embedded</h2>
+<p>// TODO</p>
+<h2 id="14-优劣"><a class="markdownIt-Anchor" href="#14-优劣"></a> 1.4 优劣</h2>
+<p>// TODO</p>
+<h1 id="2-经典-已有的-freestanding-嵌入式开发软件栈"><a class="markdownIt-Anchor" href="#2-经典-已有的-freestanding-嵌入式开发软件栈"></a> 2 经典 / 已有的 freestanding 嵌入式开发软件栈</h1>
+<h2 id="cc"><a class="markdownIt-Anchor" href="#cc"></a> C/C++</h2>
+<p>经典的 C/C++，经典的 gcc/clang。</p>
+<p>C/C++ 的主要特性在于是编译型语言，加之语法上的特性，天然决定了它的高性能和细粒度控制。编译器的 runtime 和可执行文件的 runtime 往往天差地别，由此，也就自然引入了「cross compile」的概念，好在上面这些编译器 native 支持交叉编译，也就不用再在 native 的编译器上再去套一个什么抽象层。开发者配个交叉编译工具链（编译器、汇编器、链接器等）就 OK 了，就可生成特定 target（如 ARM、AVR、MIPS 等）的可执行文件。</p>
+<p>C/C++ 下的跨平台 debug 最常见的也还是 gdb，只是同样也需要注意要为 target 交叉编译一个 gdb（依然运行在 host 上），使其能够理解 target 的 ISA 和调试信息格式。之后，运行在 host 上的 gdb（是 client）还要可以和 target（是 server）进行通信，也就是跑一些远程 debug 协议。这种远程 debug 协议的物理承载层也可选多多，串口、TCP/IP 或者专用的 JTAG/SWD 的物理 debug 接口都可以。只是 JTAG/SWD 还要通过一个 gdb 代理，比如 OpenOCD，来桥接 gdb 和 target。</p>
+<p>搞定代码之后，编译出的可执行文件一般用专门的烧录工具烧录到 target 的闪存（Flash）中，这个过程中用到的通信接口和 debug 类似，依然是串口、JTAG 那些。</p>
+<p>烧进去就可以直接执行了？错。启动代码才是第一段实际运行的代码，负责初始化硬件（如设置 clock、memory 等）并跳转到 main 程序，这才开始运行用户代码。有些比较复杂的 MCU，启动代码可以单独拎出来成 Bootloader。那启动代码和用户代码放在 Flash 和内存里的具体位置也需要规定吧？否则岂不乱了套？这就需要一个链接脚本来指定程序的内存布局，确保启动代码在正确的地址执行。</p>
+<h2 id="micropython"><a class="markdownIt-Anchor" href="#micropython"></a> MicroPython</h2>
+<p>MicroPython 本身是 Python 的简化版实现，是解释型语言。</p>
+<p>既然是解释型的语言自然需要一个常驻 target 内存的解释器和对应的 runtime，而 target 的环境又天差地别，所以跨平台兼容性的问题又来了 ——MicroPython 为不同的 MCU 提供了一组 HAL。HAL 定义了一系列 API 用于操作底层硬件，如 GPIO、UART、SPI 等。每种 MCU 都有针对其硬件特性的 HAL 实现。说到底还是通过一个抽象层来实现 MUX 映射的功能。</p>
+<p>MicroPython 解释器用 C 编写，包括一个小型 Python 编译器和 runtime，可在 MCU 上执行实时编译后的字节码。MCU 上电或 reset 后，bootloader 加载 MicroPython 的 firmware，进行初始化硬件（如 clock、memory 和 GPIO）的工作，并设置 Python 的 runtime。正式启动后，MicroPython 就进入一个交互式环境 REPL（Read-Eval-Print Loop），用户可输入 Python 代码，立即执行，也可通过文件系统运行预先写好的 script，交互输出可以通过串口或网络接口。MicroPython 解释器先把给出的 Python 代码编译成字节码，再执行。</p>
+<p>MicroPython 的 firmware 功能还是蛮强大的，既有高层的语言解释器，又有底层的硬件访问。总体来说，这套 firmware 包含 MicroPython 解释器、Python 标准库的一个子集，以及与 MCU 硬件交互所需的模块和驱动。编译这套固件的时候，也要经典交叉编译一波。</p>
+<p>固件烧录的话相对来说比较简单，ESP8266/ESP32 这种有完善商业支持的，可以用 <code>esptool</code>，其他的开源社区硬件可以用 OpenOCD，或者直接在 USB 存储模式 copy 进去 firmware 的 bin 文件。固件烧录完后，MicroPython 环境直接就可在 bootloader 的引导下开始运行。</p>
+<h2 id="rust"><a class="markdownIt-Anchor" href="#rust"></a> Rust</h2>
+<p>Rust 很新，很热。</p>
+<p>Rust 的 package manager 和 build tool 都是 Cargo，很幸运也支持交叉编译。开发者为 targer 指定一个适当的三元组（target triple），Cargo 就可以确认 target 的执行环境了，实际上 gcc 那边也一样。Rust 有个专为 freestanding 环境设计的 <code>core</code> 库，是标准库的一个子集，编译这个库要用 Xargo/Cargo-xbuild。从这里也可以看出，Rust 对嵌入式开发还是给了资源的，毕竟官方都特地说明嵌入式高性能是 Rust 主打了。</p>
+<blockquote>
+<p>目标三元组通常由三个部分组成，格式为 <code>&lt;arch&gt;&lt;sub&gt;-&lt;vendor&gt;-&lt;sys&gt;-&lt;abi&gt;</code>，其中：</p>
+<ul>
+<li>arch：指目标架构，比如 x86_64、arm 等。</li>
+<li>vendor：指制造商或供应商，可能被忽略或用 unknown 代替。</li>
+<li>sys：指操作系统，例如 linux、win32 等。</li>
+<li>abi：指应用程序二进制接口，例如 gnu、eabi（嵌入式应用二进制接口）、gnueabihf（带硬件浮点支持的 GNU EABI）等。</li>
+</ul>
+<p>例如，一个典型的目标三元组可以是 x86_64-pc-linux-gnu，它表示目标架构是 x86_64，供应商是 PC，操作系统是 Linux，使用的 ABI 是 GNU。</p>
+<p>编译器和构建系统会根据目标三元组来决定使用哪些编译器标志、链接哪些库以及生成怎样的代码。</p>
+</blockquote>
+<p>烧录调试在 Rust 生态下用 probe-rs，或者 OpenOCD 与 gdb 这对经典搭档一起用来做调试也 OK，Rust 本身支持多种调试和烧录协议。另外，Rust 社区也为不同的 MCU 提供了 HAL 实现，目前来看生态还是挺火热和健康的。</p>
+<h1 id="3-在-esp32-上用-net-跑一把-freestanding-开发"><a class="markdownIt-Anchor" href="#3-在-esp32-上用-net-跑一把-freestanding-开发"></a> 3 在 ESP32 上用 .NET 跑一把 freestanding 开发</h1>
+<h2 id="31-local-blink"><a class="markdownIt-Anchor" href="#31-local-blink"></a> 3.1 local blink</h2>
+<h2 id="32-mqtt-blink-with-azure"><a class="markdownIt-Anchor" href="#32-mqtt-blink-with-azure"></a> 3.2 MQTT blink with Azure</h2>
+<h1 id="4-summary"><a class="markdownIt-Anchor" href="#4-summary"></a> 4 summary</h1>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 118k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>
