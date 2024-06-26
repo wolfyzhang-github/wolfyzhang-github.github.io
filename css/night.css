@@ -1,0 +1,18 @@
+.night-mode {
+  background-color: #121212;
+  color: #b0b0b0;
+}
+.night-mode a {
+  color: #b0b0b0;
+}
+.night-mode .pinned-item-date,
+.night-mode .post-item-date {
+  color: #b0b0b0;
+}
+.night-mode blockquote {
+  background-color: #333 !important;
+}
+.night-mode pre code {
+  background-color: #333;
+  color: #b0b0b0;
+}

@@ -1,0 +1,57 @@
+.main-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.pinned-chapter {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0 0 10px 10px;
+}
+.post-chapter {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 30px 0 10px 10px;
+}
+.pinned-list,
+.post-list {
+  width: 100%;
+  margin: 0 10px;
+}
+.pinned-item,
+.post-item {
+  width: 100%;
+  text-align: left;
+}
+.pinned-item:not(:last-child),
+.post-item:not(:last-child) {
+  margin-bottom: 10px;
+}
+.pinned-item-key,
+.post-item-key {
+  font-size: 1em;
+}
+.pinned-item-date,
+.post-item-date {
+  font-size: 0.9em;
+  color: #555;
+  margin-left: 0.5em;
+}
+.pinned-item-title,
+.post-item-title {
+  font-size: 1em;
+  margin-left: 0.4em;
+  color: #07c;
+  text-decoration: none;
+  transition: color 0.3s ease, text-decoration 0.3s ease; /* 平滑过渡效果 */
+}
+.pinned-item-title:hover,
+.post-item-title:hover {
+  color: #005fa3;
+  text-decoration: underline;
+}
+.pinned-item-abstract,
+.post-item-abstract {
+  font-size: 0.8em;
+  color: #555;
+  margin: 8px 0 0 0;
+}

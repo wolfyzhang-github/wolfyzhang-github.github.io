@@ -1,0 +1,131 @@
+.post-details {
+  width: 95%;
+  margin: 0 10px 0 10px;
+  inline-height: 1.8em;
+}
+.post-details a:not(.nonstyle) {
+  transition: color 0.3s ease, text-decoration 0.3s ease; /* 平滑过渡效果 */
+  text-decoration: none;
+  color: #07c;
+}
+.post-details a:not(.nonstyle):hover {
+  color: #005fa3;
+  text-decoration: underline;
+}
+.post-details .post-title {
+  margin: 0 10px 0 0;
+  margin-bottom: 10px;
+}
+.post-details .post-title h1 {
+  font-size: 1.5em;
+  font-weight: normal;
+  margin-block: 0;
+}
+.post-details .post-meta {
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #999;
+}
+.post-details .post-content h1,
+.post-details .post-content h2,
+.post-details .post-content h3,
+.post-details .post-content h4,
+.post-details .post-content h5,
+.post-details .post-content h6 {
+  margin-block: 0;
+  margin-inline: 0;
+  margin-bottom: 15px;
+  line-height: 1.2em;
+}
+.post-details .post-content h1 {
+  margin: 50px 0 30px;
+  font-size: 1.4em;
+}
+.post-details .post-content h2 {
+  margin: 40px 0 25px;
+  font-size: 1.3em;
+}
+.post-details .post-content h3 {
+  margin: 30px 0 20px;
+  font-size: 1.2em;
+}
+.post-details .post-content h4 {
+  margin: 20px 0 15px;
+  font-size: 1.1em;
+}
+.post-details .post-content h5 {
+  margin: 15px 0 10px;
+  font-size: 1em;
+}
+.post-details .post-content h6 {
+  font-size: 0.9em;
+}
+.post-details .post-content p {
+  margin-block: 0;
+  line-height: 1.8em;
+}
+.post-details .post-content p:not(:last-child) {
+  margin: 15px 0 3px 0;
+}
+.post-details .post-content img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+.post-details .post-content blockquote {
+  margin-block: 0;
+  margin-inline: 0;
+  padding: 10px 0 10px 10px;
+  background-color: #eee;
+  border-left: 7px solid #999;
+  margin: 0 0 30px;
+  border-radius: 8px; /* 添加圆角效果 */
+}
+.post-details .post-content blockquote>p {
+  margin: 0 0;
+}
+.post-details .post-content kbd {
+  padding: 1px 3px;
+  background-color: #eee;
+  box-shadow: 1px 2px #999;
+  border-radius: 3px;
+}
+.post-details .post-content mark,
+.post-details .post-content code:not(.hljs) {
+  padding: 1px 3px;
+  background-color: #eee;
+  border-radius: 3px;
+}
+.post-details .post-content table {
+  text-align: left;
+  border-collapse: collapse;
+}
+.post-details .post-content th,
+.post-details .post-content td {
+  padding: 5px;
+  border: 1px solid #eee;
+}
+.post-details .post-content tr:nth-child(even) {
+  background-color: #eee;
+}
+.post-details .post-content th {
+  font-weight: 400;
+  background-color: #ddd;
+}
+.post-details .post-content table {
+  margin: 1em 0;
+  width: 100%;
+}
+.post-details .post-content hr {
+  margin: 35px 0 40px;
+  border-style: solid;
+  border-width: initial;
+  border-color: #aaa;
+}
+.katex > .katex-html {
+  white-space: normal;
+}
+.katex .base {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
