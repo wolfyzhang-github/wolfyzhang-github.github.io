@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+    <title>
+        
+            探索 Windows Terminal 的新功能 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+   
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            
+                <div class="post-title">
+                    <h1>探索 Windows Terminal 的新功能</h1>
+                </div>
+                <div class="post-meta">
+                    <i>Published</i>&nbsp;
+                    <span class="post-date">
+                        2023/10/15
+                    </span>&nbsp;&nbsp;
+                    <i>Updated</i>&nbsp;
+                    <span class="post-updated">
+                        2024/02/27
+                    </span>
+                </div>
+            
+            <div class="post-content">
+                <p><strong>1. 高效的多标签页管理</strong></p>
+<ul>
+<li>Windows Terminal 支持多标签页管理，允许用户在同一个窗口中打开多个标签页，每个标签页可以运行不同的命令行工具或应用程序。</li>
+<li>用户可以通过点击标签页标题或使用快捷键来切换标签页，也可以通过右键菜单来管理标签页。</li>
+<li>Windows Terminal 还支持垂直标签页布局，可以节省屏幕空间，提高工作效率。</li>
+</ul>
+<p><strong>代码示例：</strong></p>
+<pre><code class="hljs plaintext"># 打开多个标签页
+wt -t &quot;cmd&quot; -t &quot;powershell&quot; -t &quot;bash&quot;
+
+# 切换标签页
+Ctrl + Tab
+
+# 关闭标签页
+Ctrl + W
+
+# 启用垂直标签页布局
+wt --layout vertical</code></pre>
+<p><strong>2. 强大的主题自定义</strong></p>
+<ul>
+<li>Windows Terminal 支持强大的主题自定义功能，用户可以自定义终端窗口的外观，包括背景颜色、字体、光标形状等。</li>
+<li>Windows Terminal 还提供了多种预定义的主题，用户可以根据自己的喜好选择使用。</li>
+</ul>
+<p><strong>代码示例：</strong></p>
+<pre><code class="hljs plaintext"># 设置背景颜色
+wt --background-color &quot;#000000&quot;
+
+# 设置字体
+wt --font &quot;Consolas&quot;
+
+# 设置光标形状
+wt --cursor-shape &quot;block&quot;
+
+# 使用预定义的主题
+wt --theme &quot;Dark&quot;</code></pre>
+<p><strong>3. 实用的实用程序集成</strong></p>
+<ul>
+<li>Windows Terminal 集成了许多实用的实用程序，包括：
+<ul>
+<li><strong>剪贴板历史记录：</strong> 可以存储和访问剪贴板中的历史记录。</li>
+<li><strong>命令历史记录：</strong> 可以存储和访问命令行的历史记录。</li>
+<li><strong>文件浏览器：</strong> 可以浏览文件系统并打开文件。</li>
+<li><strong>任务管理器：</strong> 可以查看和管理正在运行的进程。</li>
+</ul>
+</li>
+</ul>
+<p><strong>代码示例：</strong></p>
+<pre><code class="hljs plaintext"># 显示剪贴板历史记录
+Ctrl + Shift + V
+
+# 显示命令历史记录
+Ctrl + R
+
+# 打开文件浏览器
+Ctrl + O
+
+# 打开任务管理器
+Ctrl + Shift + Esc</code></pre>
+<p><strong>4. 跨平台支持</strong></p>
+<ul>
+<li>Windows Terminal 支持跨平台使用，可以在 Windows、macOS 和 Linux 系统上运行。</li>
+<li>用户可以在不同的平台上使用 Windows Terminal，并享受一致的体验。</li>
+</ul>
+<p><strong>代码示例：</strong></p>
+<pre><code class="hljs plaintext"># 在 macOS 上安装 Windows Terminal
+brew install microsoft/terminal
+
+# 在 Linux 上安装 Windows Terminal
+sudo apt install microsoft-terminal</code></pre>
+<p><strong>结论</strong></p>
+<p>Windows Terminal 是一款功能强大、高度可定制的终端模拟器，它可以提高开发人员的工作效率，并为用户提供更好的使用体验。Windows Terminal 还支持跨平台使用，可以在 Windows、macOS 和 Linux 系统上运行。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 74k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+    <script>
+        function applyNightMode() {
+          const isNightMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isNightMode) {
+            document.body.classList.add('night-mode');
+          } else {
+            document.body.classList.remove('night-mode');
+          }
+        }
+      
+        applyNightMode();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyNightMode);
+      </script>      
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,d=o();function o(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=o());for(var e,i=0;i<d.length;i++)0<=(e=(e=d[i]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,a,n,o=d[i];e=function(){d=d.filter(function(t){return o!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(o)},(t=o).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,n=t.getAttribute("data-original"),a.onload=function(){t.src=n,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=n},t.src!==n&&(a.src=n)))}()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)}(this);</script></body>
+</html>

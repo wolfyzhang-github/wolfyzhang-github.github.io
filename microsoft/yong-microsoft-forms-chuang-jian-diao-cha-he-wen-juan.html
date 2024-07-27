@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+    <title>
+        
+            用 Microsoft Forms 创建调查和问卷 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+   
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            
+                <div class="post-title">
+                    <h1>用 Microsoft Forms 创建调查和问卷</h1>
+                </div>
+                <div class="post-meta">
+                    <i>Published</i>&nbsp;
+                    <span class="post-date">
+                        2023/03/22
+                    </span>&nbsp;&nbsp;
+                    <i>Updated</i>&nbsp;
+                    <span class="post-updated">
+                        2024/02/27
+                    </span>
+                </div>
+            
+            <div class="post-content">
+                <h2 id="使用-microsoft-forms-创建调查和问卷"><a class="markdownIt-Anchor" href="#使用-microsoft-forms-创建调查和问卷"></a> 使用 Microsoft Forms 创建调查和问卷</h2>
+<h3 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h3>
+<p>Microsoft Forms 是一款基于网络的调查工具，可用于创建和管理调查和问卷。它易于使用，即使对于没有太多技术经验的人来说也是如此。而且它包含各种功能，可帮助您创建引人入胜且有效的调查。</p>
+<h3 id="创建新调查"><a class="markdownIt-Anchor" href="#创建新调查"></a> 创建新调查</h3>
+<p>要创建新调查，只需登录 Microsoft Forms 并单击 “新建调查” 按钮。然后，您将被要求输入调查的标题和说明。您还可以选择从预定义模板或空白调查开始。</p>
+<h3 id="添加问题"><a class="markdownIt-Anchor" href="#添加问题"></a> 添加问题</h3>
+<p>接下来，您可以开始添加问题到您的调查中。Microsoft Forms 提供了各种类型的问题，包括多项选择题、单选题、开放式问题、排名问题和日期问题。您还可以添加图像和视频到您的调查中。</p>
+<h3 id="自定义调查设计"><a class="markdownIt-Anchor" href="#自定义调查设计"></a> 自定义调查设计</h3>
+<p>一旦您添加了所有问题，就可以自定义调查的设计。您可以选择从各种主题中进行选择，并更改字体、颜色和布局。您还可以添加徽标和图像以使您的调查更具品牌特色。</p>
+<h3 id="收集回复"><a class="markdownIt-Anchor" href="#收集回复"></a> 收集回复</h3>
+<p>准备好后，您就可以开始向人们发送调查。您可以通过电子邮件、社交媒体或嵌入到网站上的链接共享您的调查。Microsoft Forms 会自动跟踪回复，并允许您查看结果。</p>
+<h3 id="分析结果"><a class="markdownIt-Anchor" href="#分析结果"></a> 分析结果</h3>
+<p>Microsoft Forms 提供了一个强大的分析工具，可帮助您分析调查结果。您可以查看每个问题的回复摘要，并生成图表和图形来可视化数据。您还可以将结果导出到 Excel 或 CSV 文件以进行进一步分析。</p>
+<h3 id="代码示例"><a class="markdownIt-Anchor" href="#代码示例"></a> 代码示例</h3>
+<p>以下代码示例演示如何使用 Microsoft Forms API 创建调查：</p>
+<pre><code class="hljs plaintext">const &#123; MicrosoftGraph &#125; = require (&#x27;@microsoft/microsoft-graph-client&#x27;);
+
+const client = new MicrosoftGraph.Client (&#123;
+  authProvider: new MicrosoftGraph.DeviceCodeAuthProvider (),
+&#125;);
+
+const createSurvey = async () =&gt; &#123;
+  const survey = &#123;
+    title: &#x27;My Survey&#x27;,
+    description: &#x27;This is a survey to collect feedback.&#x27;,
+    questions: [
+      &#123;
+        type: &#x27;MultipleChoice&#x27;,
+        title: &#x27;What is your favorite color?&#x27;,
+        choices: [
+          &#123;
+            text: &#x27;Red&#x27;,
+          &#125;,
+          &#123;
+            text: &#x27;Green&#x27;,
+          &#125;,
+          &#123;
+            text: &#x27;Blue&#x27;,
+          &#125;,
+          &#123;
+            text: &#x27;Yellow&#x27;,
+          &#125;,
+          &#123;
+            text: &#x27;Orange&#x27;,
+          &#125;,
+        ],
+      &#125;,
+      &#123;
+        type: &#x27;OpenText&#x27;,
+        title: &#x27;What are your thoughts on Microsoft Forms?&#x27;,
+      &#125;,
+    ],
+  &#125;;
+
+  const response = await client.api (&#x27;/surveys&#x27;).post (survey);
+  console.log (response.data);
+&#125;;
+
+createSurvey ();</code></pre>
+<h3 id="结论"><a class="markdownIt-Anchor" href="#结论"></a> 结论</h3>
+<p>Microsoft Forms 是一款功能强大且易于使用的调查工具。它非常适合企业收集客户反馈、员工反馈和其他类型的反馈。如果您正在寻找一种创建和管理调查的简单方法，Microsoft Forms 是一个不错的选择。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 74k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+    <script>
+        function applyNightMode() {
+          const isNightMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isNightMode) {
+            document.body.classList.add('night-mode');
+          } else {
+            document.body.classList.remove('night-mode');
+          }
+        }
+      
+        applyNightMode();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyNightMode);
+      </script>      
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,d=o();function o(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=o());for(var e,i=0;i<d.length;i++)0<=(e=(e=d[i]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,a,n,o=d[i];e=function(){d=d.filter(function(t){return o!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(o)},(t=o).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,n=t.getAttribute("data-original"),a.onload=function(){t.src=n,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=n},t.src!==n&&(a.src=n)))}()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)}(this);</script></body>
+</html>

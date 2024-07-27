@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+    <title>
+        
+            使用 Azure Blockchain 服务创建你的第一个区块链应用 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+   
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            
+                <div class="post-title">
+                    <h1>使用 Azure Blockchain 服务创建你的第一个区块链应用</h1>
+                </div>
+                <div class="post-meta">
+                    <i>Published</i>&nbsp;
+                    <span class="post-date">
+                        2023/10/20
+                    </span>&nbsp;&nbsp;
+                    <i>Updated</i>&nbsp;
+                    <span class="post-updated">
+                        2024/02/27
+                    </span>
+                </div>
+            
+            <div class="post-content">
+                <p><strong>标题：运用 Azure 区块链服务构建你的第一个区块链应用 - 一步一步指南</strong></p>
+<p><strong>导语：</strong><br />
+区块链技术正在重塑世界，从金融到供应链到医疗保健，各行各业都在探索区块链的潜力。Azure 区块链服务提供了一个简单易用的平台，帮助开发人员快速构建和部署区块链应用。在这篇文章中，我们将一步一步指导你创建一个简单的区块链应用，帮助你快速入门。</p>
+<p><strong>步骤 1：创建 Azure 区块链服务实例</strong><br />
+首先，你需要创建一个 Azure 区块链服务实例。你可以前往 Azure 门户，在搜索栏中输入 “Blockchain Service”，然后点击 “创建”。在创建实例时，你需要选择一个资源组、实例名称、位置和定价层。</p>
+<p><strong>步骤 2：创建区块链网络</strong><br />
+实例创建完成后，你就可以创建区块链网络了。在 Azure 门户中，导航到你的区块链服务实例，然后点击 “创建网络”。你需要选择一个网络名称、网络类型（例如，公共网络或联盟网络）和共识机制（例如，权益证明或工作量证明）。</p>
+<p><strong>步骤 3：部署智能合约</strong><br />
+智能合约是区块链上的可编程代码，可以自动执行协议条款。在 Azure 区块链服务中，你可以使用 Solidity 或 C# 语言来编写智能合约。你可以将智能合约部署到你的区块链网络上，以便在区块链上执行交易。</p>
+<p><strong>步骤 4：与区块链网络交互</strong><br />
+一旦你部署了智能合约，你就可以与区块链网络交互了。你可以使用 Azure CLI、REST API 或 SDK 来发送交易到区块链网络。你也可以使用区块浏览器来查看区块链上的交易和区块。</p>
+<p><strong>步骤 5：构建前端应用</strong><br />
+现在，你已经拥有了一个运行中的区块链网络和智能合约。下一步，你可以构建一个前端应用来与区块链网络交互。你可以使用任何你喜欢的编程语言来构建前端应用，例如，JavaScript、Python 或 Java。</p>
+<p><strong>代码示例：</strong></p>
+<pre><code class="hljs javascript"><span class="hljs-comment">// 导入必要的库 </span>
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">Web3</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;web3&#x27;</span>);
+
+<span class="hljs-comment">// 创建一个新的 Web3 实例 </span>
+<span class="hljs-keyword">const</span> web3 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Web3</span>(<span class="hljs-string">&#x27;https://&lt;your-node-url&gt;&#x27;</span>);
+
+<span class="hljs-comment">// 获取合约的 ABI 和字节码 </span>
+<span class="hljs-keyword">const</span> abi = [
+  <span class="hljs-comment">// 合约的 ABI</span>
+];
+
+<span class="hljs-keyword">const</span> bytecode = <span class="hljs-string">&#x27;0x&lt;contract-bytecode&gt;&#x27;</span>;
+
+<span class="hljs-comment">// 创建一个新的合约实例 </span>
+<span class="hljs-keyword">const</span> contract = <span class="hljs-keyword">new</span> web3.<span class="hljs-property">eth</span>.<span class="hljs-title class_">Contract</span>(abi);
+
+<span class="hljs-comment">// 部署合约 </span>
+contract.<span class="hljs-title function_">deploy</span>(&#123;
+  <span class="hljs-attr">data</span>: bytecode,
+  <span class="hljs-attr">arguments</span>: [
+    <span class="hljs-comment">// 合约的构造函数参数 </span>
+  ]
+&#125;).<span class="hljs-title function_">send</span>(&#123;
+  <span class="hljs-attr">from</span>: <span class="hljs-string">&#x27;&lt;your-account-address&gt;&#x27;</span>,
+  <span class="hljs-attr">gas</span>: <span class="hljs-number">1000000</span>
+&#125;).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">receipt</span>) =&gt;</span> &#123;
+  <span class="hljs-comment">// 合约部署成功 </span>
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27; 合约地址:&#x27;</span>, receipt.<span class="hljs-property">contractAddress</span>);
+&#125;);</code></pre>
+<p><strong>结束语：</strong><br />
+在本文中，我们一步一步地指导你创建了一个简单的区块链应用。你了解了如何使用 Azure 区块链服务创建区块链实例、网络、智能合约和前端应用。通过本文，你已经掌握了区块链应用开发的基本知识。你可以继续探索区块链的更多功能，例如，如何创建代币、如何使用区块链来实现去中心化投票等等。让我们一起探索区块链技术的无限可能！</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 74k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+    <script>
+        function applyNightMode() {
+          const isNightMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isNightMode) {
+            document.body.classList.add('night-mode');
+          } else {
+            document.body.classList.remove('night-mode');
+          }
+        }
+      
+        applyNightMode();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyNightMode);
+      </script>      
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,d=o();function o(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=o());for(var e,i=0;i<d.length;i++)0<=(e=(e=d[i]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,a,n,o=d[i];e=function(){d=d.filter(function(t){return o!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(o)},(t=o).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,n=t.getAttribute("data-original"),a.onload=function(){t.src=n,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=n},t.src!==n&&(a.src=n)))}()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)}(this);</script></body>
+</html>

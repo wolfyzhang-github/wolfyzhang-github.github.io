@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+    <title>
+        
+            微软的开源贡献：从.NET 到 TypeScript |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+   
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            
+                <div class="post-title">
+                    <h1>微软的开源贡献：从.NET 到 TypeScript</h1>
+                </div>
+                <div class="post-meta">
+                    <i>Published</i>&nbsp;
+                    <span class="post-date">
+                        2023/09/07
+                    </span>&nbsp;&nbsp;
+                    <i>Updated</i>&nbsp;
+                    <span class="post-updated">
+                        2024/02/27
+                    </span>
+                </div>
+            
+            <div class="post-content">
+                <h1 id="net开源的net-世界"><a class="markdownIt-Anchor" href="#net开源的net-世界"></a> <strong>.NET：<a target="_blank" rel="noopener" href="http://xn--h0t795as3f.NET">开源的.NET</a> 世界</strong></h1>
+<p>.NET 是微软开发的一个开源软件平台，用于构建各种类型的应用程序，例如 Web 应用程序、移动应用程序、游戏和桌面应用程序。.NET 包括一个公共语言运行时 (CLR)、一个类库和一套开发工具。CLR 是一个虚拟机，它管理应用程序的执行，并提供诸如内存管理、线程管理和异常处理等服务。类库提供了一系列可用于构建应用程序的类和接口。开发工具包括 Visual Studio，这是一个集成开发环境，可用于创建、调试和部署 .NET 应用程序。</p>
+<p>.NET 也是一个开源项目，这意味着它可以自由使用、修改和分发。.NET 社区非常活跃，有许多贡献者和维护者致力于该项目的开发和维护。.NET 也得到了微软的官方支持，微软定期发布更新和改进。</p>
+<h2 id="typescriptjavascript-的超集"><a class="markdownIt-Anchor" href="#typescriptjavascript-的超集"></a> <strong>TypeScript：JavaScript 的超集</strong></h2>
+<p>TypeScript 是微软开发的开源编程语言，它是 JavaScript 的一个超集。这意味着 TypeScript 代码可以编译成 JavaScript 代码，并且可以在任何支持 JavaScript 的环境中运行。TypeScript 增加了类型系统、类和接口等功能，使 JavaScript 代码更容易编写、维护和理解。</p>
+<p>TypeScript 是一个流行的编程语言，用于构建各种类型的应用程序，例如 Web 应用程序、移动应用程序和游戏。TypeScript 也得到了微软的官方支持，微软定期发布更新和改进。</p>
+<h2 id="代码示例"><a class="markdownIt-Anchor" href="#代码示例"></a> <strong>代码示例</strong></h2>
+<p>以下是一个简单的 C# 程序，演示如何使用 .NET 构建一个简单的 Web 应用程序：</p>
+<pre><code class="hljs plaintext">using System.Web;
+
+public class HelloWorld : System.Web.IHttpHandler
+&#123;
+    public void ProcessRequest (HttpContext context)
+    &#123;
+        context.Response.ContentType = &quot;text/plain&quot;;
+        context.Response.Write (&quot;Hello World!&quot;);
+    &#125;
+
+    public bool IsReusable
+    &#123;
+        get
+        &#123;
+            return true;
+        &#125;
+    &#125;
+&#125;</code></pre>
+<p>要运行这个程序，您需要在 Visual Studio 中创建一个新的 <a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> Web 应用程序项目并添加上面的代码到 Default.aspx.cs 文件中。然后，您可以通过在浏览器中输入 <a target="_blank" rel="noopener" href="http://localhost">http://localhost</a>:port/Default.aspx 来运行应用程序。</p>
+<p>以下是一个简单的 TypeScript 程序，演示如何使用 TypeScript 构建一个简单的 Web 应用程序：</p>
+<pre><code class="hljs plaintext">function helloWorld () &#123;
+    console.log (&quot;Hello World!&quot;);
+&#125;
+
+helloWorld ();</code></pre>
+<p>要运行这个程序，您需要创建一个新的 TypeScript 文件并添加上面的代码。然后，您可以通过在命令行中输入 tsc helloWorld.ts 来编译该程序。这将生成一个 JavaScript 文件 helloWorld.js。然后，您可以通过在浏览器中输入 <a target="_blank" rel="noopener" href="http://localhost">http://localhost</a>:port/helloWorld.js 来运行应用程序。</p>
+<h2 id="结语"><a class="markdownIt-Anchor" href="#结语"></a> <strong>结语</strong></h2>
+<p>.NET 和 TypeScript 都 是微软开发的开源编程语言。.NET 是一个通用编程语言，可用于构建各种类型的应用程序。TypeScript 是 JavaScript 的一个超集，增加了类型系统、类和接口等功能。这两个编程语言都很流行，并且得到了微软的官方支持。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 74k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+    <script>
+        function applyNightMode() {
+          const isNightMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isNightMode) {
+            document.body.classList.add('night-mode');
+          } else {
+            document.body.classList.remove('night-mode');
+          }
+        }
+      
+        applyNightMode();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyNightMode);
+      </script>      
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,d=o();function o(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=o());for(var e,i=0;i<d.length;i++)0<=(e=(e=d[i]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,a,n,o=d[i];e=function(){d=d.filter(function(t){return o!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(o)},(t=o).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,n=t.getAttribute("data-original"),a.onload=function(){t.src=n,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=n},t.src!==n&&(a.src=n)))}()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)}(this);</script></body>
+</html>

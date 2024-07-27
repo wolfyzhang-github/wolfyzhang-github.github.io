@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+    <title>
+        
+            如何使用 Visual Studio App Center 监控和优化移动应用 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+   
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            
+                <div class="post-title">
+                    <h1>如何使用 Visual Studio App Center 监控和优化移动应用</h1>
+                </div>
+                <div class="post-meta">
+                    <i>Published</i>&nbsp;
+                    <span class="post-date">
+                        2023/07/26
+                    </span>&nbsp;&nbsp;
+                    <i>Updated</i>&nbsp;
+                    <span class="post-updated">
+                        2024/02/27
+                    </span>
+                </div>
+            
+            <div class="post-content">
+                <h2 id="使用-visual-studio-app-center-监控和优化移动应用"><a class="markdownIt-Anchor" href="#使用-visual-studio-app-center-监控和优化移动应用"></a> 使用 Visual Studio App Center 监控和优化移动应用</h2>
+<h3 id="1-概览"><a class="markdownIt-Anchor" href="#1-概览"></a> 1. 概览</h3>
+<p>Visual Studio App Center 是 Microsoft 为移动应用开发者提供的一套工具，可帮助他们监控、分析和优化移动应用的性能和用户体验。它包括一系列功能，如崩溃分析、性能分析、用户行为分析、推送通知和远程配置等。</p>
+<h3 id="2-崩溃分析"><a class="markdownIt-Anchor" href="#2-崩溃分析"></a> 2. 崩溃分析</h3>
+<p>崩溃分析功能允许开发者快速识别和解决应用崩溃的问题。当应用崩溃时，App Center 会自动收集崩溃报告，包括崩溃时间、设备信息、操作系统版本、应用版本等信息。开发者可以根据这些信息快速定位问题并采取纠正措施。</p>
+<p>代码示例：</p>
+<pre><code class="hljs plaintext">// 崩溃分析代码示例
+AppCenter.Start (...)
+    .UseCrashReporting (true);</code></pre>
+<h3 id="3-性能分析"><a class="markdownIt-Anchor" href="#3-性能分析"></a> 3. 性能分析</h3>
+<p>性能分析功能允许开发者测量应用的性能指标，如启动时间、加载时间、内存占用等。这些指标可以帮助开发者优化应用的性能，并确保应用在不同设备上都能流畅运行。</p>
+<p>代码示例：</p>
+<pre><code class="hljs plaintext">// 性能分析代码示例
+AppCenter.Start (...)
+    .UsePerformanceMonitoring (true);</code></pre>
+<h3 id="4-用户行为分析"><a class="markdownIt-Anchor" href="#4-用户行为分析"></a> 4. 用户行为分析</h3>
+<p>用户行为分析功能允许开发者了解用户如何与应用互动。它可以通过跟踪用户在应用内的操作来收集数据，如点击、滑动、输入等。这些数据可以帮助开发者改进应用的可用性和用户体验。</p>
+<p>代码示例：</p>
+<pre><code class="hljs plaintext">// 用户行为分析代码示例
+AppCenter.Start (...)
+    .UseAnalytics (true);</code></pre>
+<h3 id="5-推送通知"><a class="markdownIt-Anchor" href="#5-推送通知"></a> 5. 推送通知</h3>
+<p>推送通知功能允许开发者向用户发送推送通知。推送通知可以用于向用户发送重要信息，如新闻、更新、促销活动等。开发者可以根据需要自定义推送通知的内容和格式。</p>
+<p>代码示例：</p>
+<pre><code class="hljs plaintext">// 推送通知代码示例
+AppCenter.Start (...)
+    .UsePushNotifications (true);</code></pre>
+<h3 id="6-远程配置"><a class="markdownIt-Anchor" href="#6-远程配置"></a> 6. 远程配置</h3>
+<p>远程配置功能允许开发者远程管理应用的配置。它可以通过网络请求将配置信息推到设备上，从而避免了手动配置应用的繁琐过程。开发者可以根据需要自定义远程配置的内容和格式。</p>
+<p>代码示例：</p>
+<pre><code class="hljs plaintext">// 远程配置代码示例
+AppCenter.Start (...)
+    .UseRemoteConfig (true);</code></pre>
+<h3 id="7-结论"><a class="markdownIt-Anchor" href="#7-结论"></a> 7. 结论</h3>
+<p>Visual Studio App Center 是一款强大的工具，可以帮助移动应用开发者监控、分析和优化移动应用的性能和用户体验。它包括一系列功能，如崩溃分析、性能分析、用户行为分析、推送通知和远程配置等。开发者可以根据需要选择使用这些功能，以提高移动应用的质量和用户满意度。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 74k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+    <script>
+        function applyNightMode() {
+          const isNightMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isNightMode) {
+            document.body.classList.add('night-mode');
+          } else {
+            document.body.classList.remove('night-mode');
+          }
+        }
+      
+        applyNightMode();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyNightMode);
+      </script>      
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,d=o();function o(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=o());for(var e,i=0;i<d.length;i++)0<=(e=(e=d[i]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,a,n,o=d[i];e=function(){d=d.filter(function(t){return o!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(o)},(t=o).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,n=t.getAttribute("data-original"),a.onload=function(){t.src=n,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=n},t.src!==n&&(a.src=n)))}()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)}(this);</script></body>
+</html>

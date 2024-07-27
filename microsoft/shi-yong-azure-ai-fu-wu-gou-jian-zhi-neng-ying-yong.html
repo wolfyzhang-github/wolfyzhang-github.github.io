@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+    <title>
+        
+            使用 Azure AI 服务构建智能应用 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+   
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            
+                <div class="post-title">
+                    <h1>使用 Azure AI 服务构建智能应用</h1>
+                </div>
+                <div class="post-meta">
+                    <i>Published</i>&nbsp;
+                    <span class="post-date">
+                        2023/09/22
+                    </span>&nbsp;&nbsp;
+                    <i>Updated</i>&nbsp;
+                    <span class="post-updated">
+                        2024/02/27
+                    </span>
+                </div>
+            
+            <div class="post-content">
+                <p><strong>标题：</strong> 使用 Azure AI 服务构建智能应用</p>
+<p><strong>导读：</strong></p>
+<p>Azure AI 服务为开发人员提供了一系列强大的工具，可用于构建智能应用。这些服务包括预训练模型、自然语言处理 (NLU)、计算机视觉 (CV)、语音识别 (SR) 和机器学习 (ML)。</p>
+<p>使用这些服务，开发人员可以轻松地构建智能应用，这些应用可以理解自然语言、识别图像中的对象、并听懂语音。此外，这些服务还可用于构建推荐系统、聊天机器人和虚拟助理。</p>
+<p><strong>代码示例：</strong></p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> azure.ai.textanalytics <span class="hljs-keyword">import</span> TextAnalyticsClient
+<span class="hljs-keyword">from</span> azure.ai.textanalytics.models <span class="hljs-keyword">import</span> Language
+
+<span class="hljs-comment"># 创建 TextAnalyticsClient 对象 </span>
+client = TextAnalyticsClient.from_credential (
+    credential=<span class="hljs-string">&quot;YOUR_AZURE_ACCOUNT_KEY&quot;</span>
+)
+
+<span class="hljs-comment"># 使用 Language.English 语言 </span>
+language = Language.English
+
+<span class="hljs-comment"># 分析文本 </span>
+text = <span class="hljs-string">&quot;Hello, world!&quot;</span>
+result = client.analyze_text (text, language)
+
+<span class="hljs-comment"># 打印结果 </span>
+<span class="hljs-built_in">print</span>(result)</code></pre>
+<p><strong>代码说明：</strong></p>
+<p>这段代码演示了如何使用 TextAnalyticsClient 分析文本。client 对象是用于访问 Azure AI 服务的入口点，analyze_text () 方法用于分析文本并返回结果。language 参数指定要分析文本的语言，本例中使用 Language.English。</p>
+<p><strong>标题：</strong> 使用 Azure AI 服务构建图像识别应用</p>
+<p><strong>导读：</strong></p>
+<p>Azure AI 服务可用于构建图像识别应用，这些应用可以识别图像中的对象并为其打上标签。这些应用可以用于各种不同的任务，例如图像搜索、社交媒体图片共享和产品目录管理。</p>
+<p><strong>代码示例：</strong></p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> azure.ai.vision <span class="hljs-keyword">import</span> ImageAnalysisClient
+<span class="hljs-keyword">from</span> azure.ai.vision.models <span class="hljs-keyword">import</span> ImageAnalysis
+
+<span class="hljs-comment"># 创建 ImageAnalysisClient 对象 </span>
+client = ImageAnalysisClient.from_credential (
+    credential=<span class="hljs-string">&quot;YOUR_AZURE_ACCOUNT_KEY&quot;</span>
+)
+
+<span class="hljs-comment"># 分析图像 </span>
+image_url = <span class="hljs-string">&quot;https://example.com/image.jpg&quot;</span>
+result = client.analyze_image (image_url, ImageAnalysis.Standard)
+
+<span class="hljs-comment"># 打印结果 </span>
+<span class="hljs-built_in">print</span>(result)</code></pre>
+<p><strong>代码说明：</strong></p>
+<p>这段代码演示了如何使用 ImageAnalysisClient 分析图像。client 对象是用于访问 Azure AI 服务的入口点，analyze_image () 方法用于分析图像并返回结果。image_url 参数指定要分析的图像的 URL，本例中使用的是示例 URL。ImageAnalysis.Standard 参数指定要执行标准图像分析。</p>
+<p><strong>标题：</strong> 使用 Azure AI 服务构建语音识别应用</p>
+<p><strong>导读：</strong></p>
+<p>Azure AI 服务可用于构建语音识别应用，这些应用可以将语音转换成文字。这些应用可以用于各种不同的任务，例如语音搜索、语音控制和客户服务。</p>
+<p><strong>代码示例：</strong></p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> azure.ai.speech <span class="hljs-keyword">import</span> SpeechClient
+<span class="hljs-keyword">from</span> azure.ai.speech.models <span class="hljs-keyword">import</span> Speech
+
+<span class="hljs-comment"># 创建 SpeechClient 对象 </span>
+client = SpeechClient.from_credential (
+    credential=<span class="hljs-string">&quot;YOUR_AZURE_ACCOUNT_KEY&quot;</span>
+)
+
+<span class="hljs-comment"># 识别语音 </span>
+audio_url = <span class="hljs-string">&quot;https://example.com/audio.wav&quot;</span>
+result = client.recognize_speech (audio_url, Speech.Standard)
+
+<span class="hljs-comment"># 打印结果 </span>
+<span class="hljs-built_in">print</span>(result)</code></pre>
+<p><strong>代码说明：</strong></p>
+<p>这段代码演示了如何使用 SpeechClient 识别语音。client 对象是用于访问 Azure AI 服务的入口点，recognize_speech () 方法用于识别语音并返回结果。audio_url 参数指定要识别的语音的 URL，本例中使用的是示例 URL。Speech.Standard 参数指定要执行标准语音识别。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 74k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+    <script>
+        function applyNightMode() {
+          const isNightMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isNightMode) {
+            document.body.classList.add('night-mode');
+          } else {
+            document.body.classList.remove('night-mode');
+          }
+        }
+      
+        applyNightMode();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyNightMode);
+      </script>      
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,d=o();function o(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=o());for(var e,i=0;i<d.length;i++)0<=(e=(e=d[i]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,a,n,o=d[i];e=function(){d=d.filter(function(t){return o!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(o)},(t=o).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,n=t.getAttribute("data-original"),a.onload=function(){t.src=n,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=n},t.src!==n&&(a.src=n)))}()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)}(this);</script></body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+    <title>
+        
+            Azure 入门：创建你的第一个虚拟机 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+   
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            
+                <div class="post-title">
+                    <h1>Azure 入门：创建你的第一个虚拟机</h1>
+                </div>
+                <div class="post-meta">
+                    <i>Published</i>&nbsp;
+                    <span class="post-date">
+                        2023/06/24
+                    </span>&nbsp;&nbsp;
+                    <i>Updated</i>&nbsp;
+                    <span class="post-updated">
+                        2024/02/27
+                    </span>
+                </div>
+            
+            <div class="post-content">
+                <h1 id="azure-入门创建你的第一个虚拟机"><a class="markdownIt-Anchor" href="#azure-入门创建你的第一个虚拟机"></a> <strong>Azure 入门：创建你的第一个虚拟机</strong></h1>
+<h3 id="标题一云计算基础虚拟机漫谈"><a class="markdownIt-Anchor" href="#标题一云计算基础虚拟机漫谈"></a> <strong>标题一：云计算基础：虚拟机漫谈</strong></h3>
+<p>在开始创建虚拟机之前，我们首先来了解一下云计算和虚拟机的基本概念。</p>
+<p>云计算是一种按需提供计算资源的服务，它使企业能够灵活地使用计算资源，而无需购买和维护自己的硬件。虚拟机则是云计算中的一种虚拟化技术，它允许在单个物理服务器上运行多个隔离的虚拟计算机。</p>
+<p>虚拟机具有以下优点：</p>
+<ol>
+<li><strong>资源共享：</strong> 多个虚拟机可以共享同一台物理服务器的资源，从而提高资源利用率。</li>
+<li><strong>隔离性：</strong> 每个虚拟机都是独立的，彼此之间不会互相影响。</li>
+<li><strong>可移植性：</strong> 虚拟机可以轻松地从一台物理服务器迁移到另一台物理服务器，提高虚拟机的可用性。</li>
+<li><strong>扩展性：</strong> 可以根据需求快速地增加或减少虚拟机的数量。</li>
+</ol>
+<h3 id="标题二创建虚拟机"><a class="markdownIt-Anchor" href="#标题二创建虚拟机"></a> <strong>标题二：创建虚拟机</strong></h3>
+<p>现在，我们开始创建我们的第一个虚拟机。</p>
+<ol>
+<li><strong>登录 Azure 门户</strong></li>
+</ol>
+<p>首先，我们需要登录 Azure 门户。Azure 门户是管理 Azure 服务的 Web 界面。</p>
+<ol start="2">
+<li><strong>创建资源组</strong></li>
+</ol>
+<p>资源组是 Azure 中的一种容器，用于将相关的资源分组在一起。我们首先需要创建一个资源组。</p>
+<ol start="3">
+<li><strong>选择虚拟机映像</strong></li>
+</ol>
+<p>虚拟机映像是虚拟机操作系统及其应用程序的模板。我们需要选择一个虚拟机映像来创建我们的虚拟机。</p>
+<ol start="4">
+<li><strong>配置虚拟机</strong></li>
+</ol>
+<p>我们接下来需要配置虚拟机的各种设置，包括虚拟机的名称、大小、网络设置等。</p>
+<ol start="5">
+<li><strong>创建虚拟机</strong></li>
+</ol>
+<p>最后，我们点击 “创建” 按钮，开始创建虚拟机。</p>
+<h3 id="标题三连接到虚拟机"><a class="markdownIt-Anchor" href="#标题三连接到虚拟机"></a> <strong>标题三：连接到虚拟机</strong></h3>
+<p>虚拟机创建完成后，我们可以通过以下方式连接到虚拟机：</p>
+<ol>
+<li><strong>远程桌面连接</strong></li>
+</ol>
+<p>远程桌面连接是一种远程控制虚拟机的方法。我们可以使用远程桌面客户端连接到虚拟机。</p>
+<ol start="2">
+<li><strong>SSH</strong></li>
+</ol>
+<p>SSH 是一种安全外壳协议，允许我们通过命令行连接到虚拟机。</p>
+<h3 id="标题四管理虚拟机"><a class="markdownIt-Anchor" href="#标题四管理虚拟机"></a> <strong>标题四：管理虚拟机</strong></h3>
+<p>虚拟机创建完成后，我们需要对其进行管理，包括启动、停止、重启、删除等操作。</p>
+<h3 id="代码示例"><a class="markdownIt-Anchor" href="#代码示例"></a> <strong>代码示例</strong></h3>
+<p>以下是一个在 Azure 门户上创建虚拟机的代码示例：</p>
+<pre><code class="hljs powershell"><span class="hljs-comment"># 登录 Azure 门户 </span>
+Login<span class="hljs-literal">-AzureRmAccount</span>
+
+<span class="hljs-comment"># 创建资源组 </span>
+<span class="hljs-built_in">New-AzureRmResourceGroup</span> <span class="hljs-literal">-Name</span> <span class="hljs-string">&quot;MyResourceGroup&quot;</span> <span class="hljs-literal">-Location</span> <span class="hljs-string">&quot;West US&quot;</span>
+
+<span class="hljs-comment"># 选择虚拟机映像 </span>
+<span class="hljs-variable">$image</span> = <span class="hljs-built_in">Get-AzureRmImage</span> <span class="hljs-literal">-Name</span> <span class="hljs-string">&quot;Windows Server 2016 Datacenter&quot;</span>
+
+<span class="hljs-comment"># 配置虚拟机 </span>
+<span class="hljs-variable">$vm</span> = <span class="hljs-built_in">New-AzureRmVMConfig</span> <span class="hljs-literal">-Name</span> <span class="hljs-string">&quot;MyVM&quot;</span> <span class="hljs-literal">-Image</span> <span class="hljs-variable">$image</span>.Id <span class="hljs-literal">-Size</span> <span class="hljs-string">&quot;Standard_DS2&quot;</span>
+
+<span class="hljs-comment"># 创建虚拟机 </span>
+<span class="hljs-built_in">New-AzureRmVM</span> <span class="hljs-literal">-ResourceGroupName</span> <span class="hljs-string">&quot;MyResourceGroup&quot;</span> <span class="hljs-literal">-VirtualMachineConfig</span> <span class="hljs-variable">$vm</span> <span class="hljs-literal">-Location</span> <span class="hljs-string">&quot;West US&quot;</span></code></pre>
+<h3 id="结语"><a class="markdownIt-Anchor" href="#结语"></a> <strong>结语</strong></h3>
+<p>现在，你已经创建了你的第一个虚拟机，并了解了如何在 Azure 上管理虚拟机。虚拟机是云计算中的一种重要技术，它可以帮助企业实现灵活的资源管理和扩展。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 74k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+    <script>
+        function applyNightMode() {
+          const isNightMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isNightMode) {
+            document.body.classList.add('night-mode');
+          } else {
+            document.body.classList.remove('night-mode');
+          }
+        }
+      
+        applyNightMode();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyNightMode);
+      </script>      
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,d=o();function o(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=o());for(var e,i=0;i<d.length;i++)0<=(e=(e=d[i]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,a,n,o=d[i];e=function(){d=d.filter(function(t){return o!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(o)},(t=o).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,n=t.getAttribute("data-original"),a.onload=function(){t.src=n,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=n},t.src!==n&&(a.src=n)))}()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)}(this);</script></body>
+</html>

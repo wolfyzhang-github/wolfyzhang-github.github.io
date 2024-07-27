@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+    <title>
+        
+            利用 Power Apps 快速构建业务应用 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+   
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            
+                <div class="post-title">
+                    <h1>利用 Power Apps 快速构建业务应用</h1>
+                </div>
+                <div class="post-meta">
+                    <i>Published</i>&nbsp;
+                    <span class="post-date">
+                        2023/11/22
+                    </span>&nbsp;&nbsp;
+                    <i>Updated</i>&nbsp;
+                    <span class="post-updated">
+                        2024/02/27
+                    </span>
+                </div>
+            
+            <div class="post-content">
+                <h2 id="利用-power-apps-快速构建业务应用"><a class="markdownIt-Anchor" href="#利用-power-apps-快速构建业务应用"></a> 利用 Power Apps 快速构建业务应用</h2>
+<p><strong>引言：</strong></p>
+<p>在当今快节奏的商业世界中，企业需要能够快速适应不断变化的需求。这使得开发能够满足特定业务需求的定制应用程序变得至关重要。然而，传统的应用程序开发过程通常耗时且昂贵。</p>
+<p>Power Apps 是微软的一款低代码开发平台，它允许企业快速构建和部署业务应用程序，而无需编写代码。这使得非技术人员也能够创建和管理应用程序，从而节省了时间和金钱。</p>
+<p><strong>以下是 Power Apps 的一些主要优势：</strong></p>
+<ul>
+<li>__无需编码：__Power Apps 采用拖放式界面，允许用户通过拖放控件和组件来创建应用程序，而无需编写任何代码。这使得非技术人员也能够轻松创建和管理应用程序。</li>
+<li>__快速部署：__Power Apps 应用程序可以快速部署到任何设备，包括桌面、移动设备和 Web 浏览器。这使得企业能够快速将应用程序交付给用户，从而提高生产力和效率。</li>
+<li>__可扩展性：__Power Apps 应用程序可以轻松扩展，以满足不断增长的业务需求。这使得企业能够在不重新开发应用程序的情况下，添加新的功能和特性。</li>
+<li>__安全性和合规性：__Power Apps 应用程序遵循严格的安全和合规性标准，确保数据安全和隐私。这使得 Power Apps 成为企业开发业务应用程序的理想平台。</li>
+</ul>
+<p><strong>Power Apps 示例：</strong></p>
+<p>以下是一些使用 Power Apps 开发的实际应用程序示例：</p>
+<ul>
+<li>__客户关系管理 (CRM)：__Power Apps 可以用于创建 CRM 应用程序，以帮助企业管理客户关系、销售线索和销售机会。</li>
+<li>__库存管理：__Power Apps 可以用于创建库存管理应用程序，以帮助企业跟踪库存水平、订单和发货。</li>
+<li>__项目管理：__Power Apps 可以用于创建项目管理应用程序，以帮助企业管理项目、任务和资源。</li>
+<li>__财务管理：__Power Apps 可以用于创建财务管理应用程序，以帮助企业管理财务、预算和支出。</li>
+<li>__人力资源管理：__Power Apps 可以用于创建人力资源管理应用程序，以帮助企业管理员工、绩效和薪酬。</li>
+</ul>
+<p><strong>代码示例：</strong></p>
+<p>以下是一个简单的 Power Apps 代码示例，演示如何创建一个简单的计算器应用程序：</p>
+<pre><code class="hljs plaintext">OnStart:
+  Set (
+    Sum,
+    0
+  )
+
+OnButton1Click:
+  Set (
+    Num1,
+    Value (TextInput1.Text)
+  )
+
+OnButton2Click:
+  Set (
+    Num2,
+    Value (TextInput2.Text)
+  )
+
+OnButton3Click:
+  Set (
+    Sum,
+    Num1 + Num2
+  )
+
+OnButton4Click:
+  Set (
+    Sum,
+    Num1 - Num2
+  )
+
+OnButton5Click:
+  Set (
+    Sum,
+    Num1 * Num2
+  )
+
+OnButton6Click:
+  Set (
+    Sum,
+    Num1 / Num2
+  )</code></pre>
+<p><strong>结论：</strong></p>
+<p>Power Apps 是一个低代码开发平台，它允许企业快速构建和部署业务应用程序，而无需编写代码。这使得非技术人员也能够创建和管理应用程序，从而节省了时间和金钱。Power Apps 具有许多优点，包括无需编码、快速部署、可扩展性、安全性和合规性等。它可以用于开发各种类型的业务应用程序，如 CRM、库存管理、项目管理、财务管理和人力资源管理等。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 74k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+    <script>
+        function applyNightMode() {
+          const isNightMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isNightMode) {
+            document.body.classList.add('night-mode');
+          } else {
+            document.body.classList.remove('night-mode');
+          }
+        }
+      
+        applyNightMode();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyNightMode);
+      </script>      
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,d=o();function o(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=o());for(var e,i=0;i<d.length;i++)0<=(e=(e=d[i]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,a,n,o=d[i];e=function(){d=d.filter(function(t){return o!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(o)},(t=o).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,n=t.getAttribute("data-original"),a.onload=function(){t.src=n,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=n},t.src!==n&&(a.src=n)))}()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)}(this);</script></body>
+</html>

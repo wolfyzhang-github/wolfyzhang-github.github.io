@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+    <title>
+        
+            浅析 Android 的 Recovery 和 Fastboot |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+   
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            <div class="post-title">
+                <h1>浅析 Android 的 Recovery 和 Fastboot</h1>
+            </div>
+            <div class="post-meta">
+                <i>Published: </i>
+                <span class="post-date">
+                    2022/07/29
+                </span>
+                <i>Updated: </i>
+                <span class="post-updated">
+                    2022/07/30
+                </span><br/>
+                <i>Words: </i>
+                <span class="post-updated">
+                    678
+                </span>
+            </div>
+            
+            
+            <div class="post-content">
+                <p>Recovery 应该类似于 PE 系统，是一个简单但是完整的 Linux，有文件系统和简单的 UI，可单独引导。从硬盘分区上来看，Recovery 也是和内核所在的分区隔离开的，除非用户主动进行一些修改的操作，否则内核分区没办法对 Recovery 分区造成影响，从而侧面达成了「当内核出问题时进 Recovery 进行修复」的目的。</p>
+<p>Recovery 本身功能并不复杂，但是架不住这么多技术狂热分子折腾，结果就形成了一方面 twrp 等第三方 Recovery 功能强大到飞起另一方面厂商原版 Recovery 功能极其简陋（甚至不包括 Recovery 设计之初的恢复系统内核的功能）。用 Recovery 进行系统修复时，显然我们只需要把镜像或者 Google Update 格式的升级包放在手机本地存储上然后让本身就是完整 OS 的 Recovery 去读取、写入即可，就完成了内核的修复或者更新等工作。</p>
+<p>Fastboot 本身应该不是一个完整的操作系统，我更倾向于它是一个工具，一种 BootLoader 的软件模式，作为 BootLoader 的一部分而存在，使得 BootLoader 可以和 PC 进行基于 USB 串口的数据通信。这也能够解释为什么 Fastboot 模式必须要用数据线和 PC 连接而不能像 Recovery 一样读取手机本地存储内容了。</p>
+<p>另外一个角度，我觉得它和某些使用 uboot 作为 BootLoader 的开发板上的「连接下载器时短接 xx 引脚」是一样的东西。现在厂商们基本都给新产品加了 BL 锁，而解锁就相当于去掉 Fastboot 指令里的校验模块。</p>
+<p>在网上看到另一种观点把 Fastboot 和 BootLoader 作为同一事物的不同名称，考虑到有平时口语不严谨的问题，我去 Android 官方文档上看了一下，找到了如下字句：「You can flash a device when it’s in the <code>fastboot</code> bootloader mode. To enter <code>fastboot</code> mode when a device is undergoing a cold boot, use the key combinations given in the table below」，我试着翻译一下：你可以在设备处于 <code>fastboot</code> bootLoader 模式下进行刷写操作。当设备处于冷启动状态时，要进入 <code>fastboot</code> 模式，请使用下表中的组合键。所以我最终对 Fastboot 的理解还是「Android 设备 BootLoader 的一种特殊模式」和「使得 BootLoader 可以和 PC 进行串口间通信的一种工具」。</p>
+<p>BootLoader 的功能就很稀松平常了，无非就是 boot 负责设备硬件初始化（CPU Clock 和 Register 之类）,Loader 负责系统（Recovery 或 Android）的引导。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 74k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+    <script>
+        function applyNightMode() {
+          const isNightMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isNightMode) {
+            document.body.classList.add('night-mode');
+          } else {
+            document.body.classList.remove('night-mode');
+          }
+        }
+      
+        applyNightMode();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyNightMode);
+      </script>      
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,d=o();function o(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=o());for(var e,i=0;i<d.length;i++)0<=(e=(e=d[i]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,a,n,o=d[i];e=function(){d=d.filter(function(t){return o!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(o)},(t=o).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,n=t.getAttribute("data-original"),a.onload=function(){t.src=n,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=n},t.src!==n&&(a.src=n)))}()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)}(this);</script></body>
+</html>

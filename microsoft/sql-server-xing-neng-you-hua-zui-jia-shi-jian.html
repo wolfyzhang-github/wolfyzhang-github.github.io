@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+    <title>
+        
+            SQL Server 性能优化最佳实践 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+   
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            
+                <div class="post-title">
+                    <h1>SQL Server 性能优化最佳实践</h1>
+                </div>
+                <div class="post-meta">
+                    <i>Published</i>&nbsp;
+                    <span class="post-date">
+                        2023/06/02
+                    </span>&nbsp;&nbsp;
+                    <i>Updated</i>&nbsp;
+                    <span class="post-updated">
+                        2024/02/27
+                    </span>
+                </div>
+            
+            <div class="post-content">
+                <ol>
+<li><strong>使用适当的数据类型</strong></li>
+</ol>
+<p>选择合适的数据类型可以显著提高查询性能。例如，如果列中只存储布尔值，则应使用 <code>BIT</code> 数据类型，而不是 <code>INT</code> 或 <code>CHAR</code> 数据类型。<code>BIT</code> 数据类型仅占用 1 个位，而 <code>INT</code> 和 <code>CHAR</code> 数据类型分别占用 4 个和 1 个字节。</p>
+<ol start="2">
+<li><strong>创建索引</strong></li>
+</ol>
+<p>索引是存储在数据库中的数据结构，允许快速查找数据。创建索引可以显著提高查询性能，特别是当您经常在列上执行 <code>WHERE</code>、<code>ORDER BY</code> 或 <code>GROUP BY</code> 操作时。</p>
+<ol start="3">
+<li><strong>使用覆盖索引</strong></li>
+</ol>
+<p>覆盖索引是包含查询所需的所有列的索引。使用覆盖索引可以避免读取表数据，从而提高查询性能。</p>
+<ol start="4">
+<li><strong>减少表连接</strong></li>
+</ol>
+<p>表连接是将两个或多个表中的数据组合在一起的操作。表连接可能会降低查询性能，特别是当表很大时。您可以通过以下方法减少表连接：</p>
+<ul>
+<li>使用子查询或视图来避免不必要的表连接。</li>
+<li>使用 <code>INNER JOIN</code> 而不是 <code>LEFT JOIN</code> 或 <code>RIGHT JOIN</code>。</li>
+<li>使用 <code>ON</code> 子句而不是 <code>WHERE</code> 子句来连接表。</li>
+</ul>
+<ol start="5">
+<li><strong>优化查询</strong></li>
+</ol>
+<p>您可以通过以下方法优化查询：</p>
+<ul>
+<li>使用 <code>EXPLAIN</code> 语句来分析查询的执行计划。</li>
+<li>使用 <code>SET STATISTICS IO</code> 和 <code>SET STATISTICS TIME</code> 语句来查看查询的 I/O 统计信息和执行时间。</li>
+<li>使用 <code>OPTIMIZE FOR</code> 提示来优化查询的执行计划。</li>
+</ul>
+<ol start="6">
+<li><strong>使用存储过程和函数</strong></li>
+</ol>
+<p>存储过程和函数是预编译的 SQL 语句，可以提高查询性能。存储过程和函数还可以使您的代码更加简洁和易于维护。</p>
+<ol start="7">
+<li><strong>使用临时表</strong></li>
+</ol>
+<p>临时表是存储在内存中的表，可以提高查询性能。临时表通常用于存储中间结果或汇总数据。</p>
+<ol start="8">
+<li><strong>使用批量操作</strong></li>
+</ol>
+<p>批量操作是指一次性插入、更新或删除多行数据。批量操作可以提高查询性能，特别是当您需要修改大量数据时。</p>
+<ol start="9">
+<li><strong>调整数据库配置</strong></li>
+</ol>
+<p>您可以通过调整数据库配置来优化性能。例如，您可以增加内存大小、调整并发连接数或启用压缩。</p>
+<ol start="10">
+<li><strong>监视数据库性能</strong></li>
+</ol>
+<p>您应该定期监视数据库性能，以便发现和解决性能问题。您可以使用以下工具来监视数据库性能：</p>
+<ul>
+<li>SQL Server Profiler</li>
+<li>Performance Monitor</li>
+<li>SQL Server Management Studio</li>
+</ul>
+<ol start="11">
+<li><strong>使用索引优化器</strong></li>
+</ol>
+<p>索引优化器是 SQL Server 中的一个工具，可以帮助您优化索引。索引优化器可以分析您的查询工作负载并推荐创建或删除索引。</p>
+<ol start="12">
+<li><strong>使用表分区</strong></li>
+</ol>
+<p>表分区是一种将表中的数据划分为多个部分的技术。表分区可以提高查询性能，特别是当表很大时。</p>
+<ol start="13">
+<li><strong>使用读写分离</strong></li>
+</ol>
+<p>读写分离是指将数据库服务器分为读服务器和写服务器。读服务器只处理读操作，而写服务器只处理写操作。读写分离可以提高查询性能，特别是当您有大量读操作和写操作时。</p>
+<ol start="14">
+<li><strong>使用复制</strong></li>
+</ol>
+<p>复制是指将数据库中的数据复制到另一个数据库。复制可以提高查询性能，特别是当您需要在多个位置访问数据时。</p>
+<ol start="15">
+<li><strong>使用云数据库</strong></li>
+</ol>
+<p>云数据库是一种托管在云上的数据库。云数据库可以提供更高的性能、可扩展性和可靠性。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 74k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+    <script>
+        function applyNightMode() {
+          const isNightMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isNightMode) {
+            document.body.classList.add('night-mode');
+          } else {
+            document.body.classList.remove('night-mode');
+          }
+        }
+      
+        applyNightMode();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyNightMode);
+      </script>      
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,d=o();function o(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=o());for(var e,i=0;i<d.length;i++)0<=(e=(e=d[i]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,a,n,o=d[i];e=function(){d=d.filter(function(t){return o!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(o)},(t=o).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,n=t.getAttribute("data-original"),a.onload=function(){t.src=n,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=n},t.src!==n&&(a.src=n)))}()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)}(this);</script></body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+    <title>
+        
+            Azure Active Directory 的基础和最佳实践 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+   
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            
+                <div class="post-title">
+                    <h1>Azure Active Directory 的基础和最佳实践</h1>
+                </div>
+                <div class="post-meta">
+                    <i>Published</i>&nbsp;
+                    <span class="post-date">
+                        2023/09/02
+                    </span>&nbsp;&nbsp;
+                    <i>Updated</i>&nbsp;
+                    <span class="post-updated">
+                        2024/02/27
+                    </span>
+                </div>
+            
+            <div class="post-content">
+                <p><strong>标题：踏上安全之旅：Azure Active Directory 深入剖析</strong></p>
+<p>在当今充满挑战的网络安全格局中，保护数字资产并确保用户身份安全已成为头等大事。Azure Active Directory (Azure AD) 作为微软云平台的核心，在确保组织的安全方面发挥着至关重要的作用。Azure AD 由多种互补和集成的服务组成，共同构建了一个全面的身份管理和访问控制解决方案。</p>
+<p><strong>基础篇：Azure AD 的核心概念</strong></p>
+<ol>
+<li>
+<p><strong>租户 (Tenant)：</strong> 每个 Azure 订阅都包含一个租户，这是 Azure AD 的根实体，代表着唯一的组织或实体，提供身份管理、资源访问控制和其他服务。</p>
+</li>
+<li>
+<p><strong>用户 (User)：</strong> 租户中的用户是与个人或实体关联的唯一标识符，用户可以访问组织的资源和服务。</p>
+</li>
+<li>
+<p><strong>组 (Group)：</strong> 组是用户集合的逻辑容器，用于管理访问权限，简化权限分配和管理。</p>
+</li>
+<li>
+<p><strong>角色 (Role)：</strong> 角色是一组授权，授予用户对特定资源或服务的访问权限和权限。</p>
+</li>
+<li>
+<p><strong>应用 (Application)：</strong> 应用是你的组织使用的软件或服务，可以与 Azure AD 集成，以实现单点登录 (SSO) 和访问控制。</p>
+</li>
+<li>
+<p><strong>条件访问 (Conditional Access)：</strong> 条件访问是一种访问控制策略，允许组织根据预定义的条件限制对资源的访问，以保护敏感数据。</p>
+</li>
+</ol>
+<p><strong>最佳实践：安全到极致</strong></p>
+<ol>
+<li>
+<p><strong>启用多因素身份验证 (MFA)：</strong> MFA 为用户身份增加了一个额外的安全层，要求用户在登录时提供多个形式的凭证，如密码和指纹或手机验证码。</p>
+</li>
+<li>
+<p><strong>使用强密码政策：</strong> 强密码政策要求用户设置更安全、更难以破解的密码，以减少密码泄露或暴力破解的风险。</p>
+</li>
+<li>
+<p><strong>最小化权限原则：</strong> 最小化权限原则要求只授予用户完成工作所需的最低访问权限，减少用户对敏感数据的潜在访问并降低安全风险。</p>
+</li>
+<li>
+<p><strong>监控和审核日志：</strong> 定期监控和审核安全日志可以让组织快速发现和响应安全事件，防止进一步的损害。</p>
+</li>
+<li>
+<p><strong>持续员工安全意识培训：</strong> 定期提供安全意识培训，旨在教育员工如何识别和避免网络威胁，如网络钓鱼和恶意软件，从而提高整体安全态势。</p>
+</li>
+</ol>
+<p><strong>代码示例：增强身份验证安全性</strong></p>
+<pre><code class="hljs powershell"><span class="hljs-comment"># 启用 MFA</span>
+<span class="hljs-built_in">Set-AzureADUser</span> <span class="hljs-literal">-ObjectId</span> <span class="hljs-variable">$UserObjectId</span> <span class="hljs-literal">-StrongAuthenticationMethods</span> <span class="hljs-selector-tag">@</span>&#123;<span class="hljs-string">&#x27;PhoneFactor&#x27;</span> = <span class="hljs-variable">$PhoneNumber</span>, <span class="hljs-string">&#x27;EmailFactor&#x27;</span> = <span class="hljs-variable">$Email</span>&#125;
+
+<span class="hljs-comment"># 创建一个条件访问策略 </span>
+<span class="hljs-variable">$Policy</span> = <span class="hljs-built_in">New-AzureADConditionalAccessPolicy</span> <span class="hljs-literal">-DisplayName</span> <span class="hljs-string">&quot;Require MFA for high-risk sign-ins&quot;</span> <span class="hljs-literal">-Type</span> <span class="hljs-string">&quot;CloudApp&quot;</span> <span class="hljs-literal">-CloudApp</span> <span class="hljs-selector-tag">@</span>&#123;ObjectId = <span class="hljs-variable">$AppId</span>&#125; <span class="hljs-literal">-Condition</span> <span class="hljs-selector-tag">@</span>&#123;Target = <span class="hljs-string">&quot;AllUsers&quot;</span>, Operator = <span class="hljs-string">&quot;Equals&quot;</span>&#125; <span class="hljs-literal">-GrantControls</span> <span class="hljs-selector-tag">@</span>&#123;Operator = <span class="hljs-string">&quot;RequireMfa&quot;</span>&#125;
+
+<span class="hljs-comment"># 指派策略 </span>
+<span class="hljs-built_in">New-AzureADConditionalAccessPolicyAssignment</span> <span class="hljs-literal">-Policy</span> <span class="hljs-variable">$Policy</span> <span class="hljs-literal">-Target</span> <span class="hljs-selector-tag">@</span>&#123;All = <span class="hljs-variable">$true</span>&#125;</code></pre>
+<p><strong>总结：安全优先，成就未来</strong></p>
+<p>Azure AD 是一个功能强大的身份管理和访问控制解决方案，为组织提供了全面的安全保护。通过理解 Azure AD 核心概念、遵循最佳实践以及使用强大的安全功能，组织可以有效地保护数据和用户身份，在瞬息万变的网络威胁面前立于不败之地。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 74k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+    <script>
+        function applyNightMode() {
+          const isNightMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isNightMode) {
+            document.body.classList.add('night-mode');
+          } else {
+            document.body.classList.remove('night-mode');
+          }
+        }
+      
+        applyNightMode();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyNightMode);
+      </script>      
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,d=o();function o(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=o());for(var e,i=0;i<d.length;i++)0<=(e=(e=d[i]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,a,n,o=d[i];e=function(){d=d.filter(function(t){return o!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(o)},(t=o).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,n=t.getAttribute("data-original"),a.onload=function(){t.src=n,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=n},t.src!==n&&(a.src=n)))}()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)}(this);</script></body>
+</html>

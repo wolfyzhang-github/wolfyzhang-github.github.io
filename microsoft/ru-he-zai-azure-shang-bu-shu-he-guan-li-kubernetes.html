@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+    <title>
+        
+            如何在 Azure 上部署和管理 Kubernetes |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+   
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            
+                <div class="post-title">
+                    <h1>如何在 Azure 上部署和管理 Kubernetes</h1>
+                </div>
+                <div class="post-meta">
+                    <i>Published</i>&nbsp;
+                    <span class="post-date">
+                        2023/09/13
+                    </span>&nbsp;&nbsp;
+                    <i>Updated</i>&nbsp;
+                    <span class="post-updated">
+                        2024/02/27
+                    </span>
+                </div>
+            
+            <div class="post-content">
+                <p><strong>标题：在 Azure 上部署和管理 Kubernetes 的酷炫指南：让你的容器化应用翱翔九天</strong></p>
+<p><strong>引言：</strong><br />
+大家好！如果你渴望在 Azure 的广阔天地中部署和管理 Kubernetes，那么你绝对来对了地方！Kubernetes 是当今最受欢迎的容器编排工具，它可以让你轻松地管理和扩展你的容器化应用程序。在这篇有趣的文章中，我们将踏上一个技术探索之旅，共同学习如何将 Kubernetes 部署在 Azure 上并进行管理。准备好你的好奇心和探索欲，让我们一起出发吧！</p>
+<p><strong>第 1 章：打好 Kubernetes 的基础</strong></p>
+<p><strong>什么是 Kubernetes？</strong><br />
+Kubernetes 是一个开源的容器编排平台，旨在自动化容器化应用程序的部署、扩展和管理。它提供了一个统一的平台，用于管理和协调跨多个主机和集群的容器化应用程序。</p>
+<p><strong>为何选择 Kubernetes？</strong><br />
+Kubernetes 拥有以下优势：</p>
+<ul>
+<li>可扩展性：Kubernetes 可以轻松地扩展以管理数千个节点和数百万个容器。</li>
+<li>弹性：Kubernetes 可以自动处理容器故障和节点故障，确保应用程序的持续运行。</li>
+<li>自动化：Kubernetes 可以自动执行许多任务，如容器调度、负载均衡和滚动更新，从而简化了应用程序的管理。</li>
+</ul>
+<p><strong>第 2 章：在 Azure 上部署 Kubernetes</strong></p>
+<p><strong>使用 Azure Kubernetes Service (AKS)</strong><br />
+AKS 是微软在 Azure 上提供的托管 Kubernetes 服务。AKS 使你无需管理 Kubernetes 集群，即可轻松地部署和管理 Kubernetes 应用程序。</p>
+<p><strong>AKS 的优势：</strong></p>
+<ul>
+<li>易用性：AKS 提供了简化的用户界面和命令行工具，使你能够轻松地创建和管理 Kubernetes 集群。</li>
+<li>可扩展性：AKS 可以轻松地扩展到数千个节点，以满足你的应用程序需求。</li>
+<li>安全性：AKS 提供了安全功能，如 RBAC 和网络策略，以帮助保护你的应用程序。</li>
+</ul>
+<p><strong>第 3 章：管理 Kubernetes 集群</strong></p>
+<p><strong>使用 Kubernetes Dashboard</strong><br />
+Kubernetes Dashboard 是一个 Web 界面，可以让你轻松地管理 Kubernetes 集群。Dashboard 使你能够查看集群状态、创建和管理节点、部署应用程序和执行其他管理任务。</p>
+<p><strong>使用 Kubectl 命令行工具</strong><br />
+Kubectl 是一个命令行工具，可以让你与 Kubernetes 集群进行交互。Kubectl 使你能够执行各种管理任务，如创建和管理节点、部署应用程序和执行命令。</p>
+<p><strong>第 4 章：部署应用程序到 Kubernetes 集群</strong></p>
+<p><strong>使用 Helm</strong><br />
+Helm 是一个包管理工具，可以让你轻松地将应用程序部署到 Kubernetes 集群。Helm 提供了一个称为 “Chart” 的打包格式，它包含应用程序的配置和依赖项。</p>
+<p><strong>使用 Helm 部署应用程序</strong></p>
+<ol>
+<li>安装 Helm。</li>
+<li>找到你想要部署的应用程序的 Helm Chart。</li>
+<li>使用 Helm 将应用程序部署到 Kubernetes 集群。</li>
+</ol>
+<p><strong>第 5 章：监控 Kubernetes 应用程序</strong></p>
+<p><strong>使用 Prometheus</strong><br />
+Prometheus 是一个开源的监控系统，可以让你监控 Kubernetes 应用程序的性能和行为。Prometheus 收集度量数据并将其存储在时序数据库中，你可以使用 Grafana 等工具来可视化这些数据。</p>
+<p><strong>使用 Grafana</strong><br />
+Grafana 是一个开源的数据可视化工具，可以让你创建仪表盘来可视化 Prometheus 收集的度量数据。Grafana 使你能够轻松地创建自定义仪表盘，以满足你的应用程序的特定监控需求。</p>
+<p><strong>总结：</strong><br />
+Kubernetes 是一个强大的工具，可以帮助你轻松地部署和管理容器化应用程序。通过在 Azure 上使用 AKS，你可以享受托管 Kubernetes 服务的所有好处，而无需管理 Kubernetes 集群。借助 Kubernetes Dashboard、Kubectl 和 Helm 等工具，你可以轻松地管理 Kubernetes 集群和部署应用程序。最后，使用 Prometheus 和 Grafana 等监控工具，你可以监控 Kubernetes 应用程序的性能和行为，确保应用程序的稳定运行。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 74k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+    <script>
+        function applyNightMode() {
+          const isNightMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isNightMode) {
+            document.body.classList.add('night-mode');
+          } else {
+            document.body.classList.remove('night-mode');
+          }
+        }
+      
+        applyNightMode();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyNightMode);
+      </script>      
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,d=o();function o(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=o());for(var e,i=0;i<d.length;i++)0<=(e=(e=d[i]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,a,n,o=d[i];e=function(){d=d.filter(function(t){return o!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(o)},(t=o).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,n=t.getAttribute("data-original"),a.onload=function(){t.src=n,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=n},t.src!==n&&(a.src=n)))}()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)}(this);</script></body>
+</html>

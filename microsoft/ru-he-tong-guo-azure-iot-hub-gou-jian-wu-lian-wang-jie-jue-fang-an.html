@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+    <title>
+        
+            如何通过 Azure IoT Hub 构建物联网解决方案 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+   
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            
+                <div class="post-title">
+                    <h1>如何通过 Azure IoT Hub 构建物联网解决方案</h1>
+                </div>
+                <div class="post-meta">
+                    <i>Published</i>&nbsp;
+                    <span class="post-date">
+                        2023/11/26
+                    </span>&nbsp;&nbsp;
+                    <i>Updated</i>&nbsp;
+                    <span class="post-updated">
+                        2024/02/27
+                    </span>
+                </div>
+            
+            <div class="post-content">
+                <p><strong>标题：物联网世界的大门 ——Azure IoT Hub 的运作方式</strong></p>
+<p><strong>前言：</strong></p>
+<p>物联网（IoT）正在改变世界，它将我们的设备连接在一起，实现数据共享、控制和自动化。而 Azure IoT Hub 是微软的物联网平台，它在云端提供了一个安全可靠的消息枢纽，可以轻松地管理和监控物联网设备。在本文中，我们将深入探讨 Azure IoT Hub 的运作方式，了解它如何帮助您构建物联网解决方案。</p>
+<p><strong>一、Azure IoT Hub 的角色：</strong></p>
+<ol>
+<li>
+<p>设备注册：Azure IoT Hub 是您物联网设备注册和连接的中心，您可以使用 IoT Hub 将设备安全地连接到云端，并对其进行管理。</p>
+</li>
+<li>
+<p>消息路由：IoT Hub 可以在设备和云端之间安全地传输数据，它支持多种消息协议，如 AMQP、MQTT 和 HTTPS，您可以在设备和云端之间选择最合适的协议。</p>
+</li>
+<li>
+<p>存储和分析：IoT Hub 可以存储来自设备的大量数据，您可以使用它来分析数据，发现设备的运行情况，还可以使用 Azure Stream Analytics 进行实时分析。</p>
+</li>
+<li>
+<p>设备管理：IoT Hub 可以帮助您管理和监视物联网设备，您可以通过 IoT Hub 更新设备固件、配置设备设置，还可以诊断设备问题。</p>
+</li>
+</ol>
+<p><strong>二、物联网解决方案的工作原理：</strong></p>
+<ol>
+<li>
+<p><strong>设备连接：</strong> 物联网设备通过网络连接到 Azure IoT Hub，可以使用 WiFi、蜂窝网络、LoRaWAN 等多种连接方式。</p>
+</li>
+<li>
+<p><strong>设备注册：</strong> 物联网设备通过 IoT Hub 的设备注册服务进行注册，设备注册提供了安全可靠的身份验证机制，可以确保只有授权的设备才能连接到 IoT Hub。</p>
+</li>
+<li>
+<p><strong>数据传输：</strong> 物联网设备将数据发送到 IoT Hub，可以使用 AMQP、MQTT、HTTPS 等多种协议进行数据传输，支持 JSON、二进制等多种数据格式。</p>
+</li>
+<li>
+<p><strong>数据存储和分析：</strong> IoT Hub 可以将物联网设备传输的数据存储起来，以便您进行数据分析，您可以使用内置的数据分析工具或第三方工具对数据进行分析。</p>
+</li>
+<li>
+<p><strong>设备管理：</strong> 您可以通过 IoT Hub 对物联网设备进行管理，包括固件更新、配置管理、错误诊断等。</p>
+</li>
+</ol>
+<p><strong>三、代码示例：</strong></p>
+<pre><code class="hljs plaintext">// Node.js 代码示例
+const iotHubTransport = require (&#x27;@azure/iot-hub-device-http&#x27;);
+const client = iotHubTransport.clientFromConnectionString (&#x27;HostName=...&#x27;);
+
+client.on (&#x27;connect&#x27;, function (connack) &#123;
+  console.log (&#x27;Client connected with sessionPresent: &#x27;, connack.sessionPresent);
+  console.log (`Client Id: $&#123;client.options.clientId&#125;`);
+
+  // 发送消息
+  client.publish (&#x27;messages/events/&#x27;, &#x27;Hello Azure IoT Hub!&#x27;);
+&#125;);
+
+client.on (&#x27;close&#x27;, function () &#123;
+  console.log (&#x27;Client closed&#x27;);
+&#125;);
+
+client.connect ();</code></pre>
+<p><strong>总结：</strong></p>
+<p>Azure IoT Hub 是物联网解决方案的坚实基础，它提供了可靠的消息路由、安全的数据存储和强大的设备管理功能，使您能够轻松构建和管理物联网解决方案，如果您有物联网方面的需求，Azure IoT Hub 绝对是您的首选。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 74k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+    <script>
+        function applyNightMode() {
+          const isNightMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isNightMode) {
+            document.body.classList.add('night-mode');
+          } else {
+            document.body.classList.remove('night-mode');
+          }
+        }
+      
+        applyNightMode();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyNightMode);
+      </script>      
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,d=o();function o(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=o());for(var e,i=0;i<d.length;i++)0<=(e=(e=d[i]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,a,n,o=d[i];e=function(){d=d.filter(function(t){return o!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(o)},(t=o).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,n=t.getAttribute("data-original"),a.onload=function(){t.src=n,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=n},t.src!==n&&(a.src=n)))}()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)}(this);</script></body>
+</html>

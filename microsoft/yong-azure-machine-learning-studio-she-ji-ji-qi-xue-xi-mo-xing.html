@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+    <title>
+        
+            用 Azure Machine Learning Studio 设计机器学习模型 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+   
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            
+                <div class="post-title">
+                    <h1>用 Azure Machine Learning Studio 设计机器学习模型</h1>
+                </div>
+                <div class="post-meta">
+                    <i>Published</i>&nbsp;
+                    <span class="post-date">
+                        2023/03/17
+                    </span>&nbsp;&nbsp;
+                    <i>Updated</i>&nbsp;
+                    <span class="post-updated">
+                        2024/02/27
+                    </span>
+                </div>
+            
+            <div class="post-content">
+                <h1 id="用-azure-machine-learning-studio-设计机器学习模型"><a class="markdownIt-Anchor" href="#用-azure-machine-learning-studio-设计机器学习模型"></a> <strong>用 Azure Machine Learning Studio 设计机器学习模型</strong></h1>
+<h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> <strong>简介</strong></h2>
+<p>Azure Machine Learning Studio 是一个基于云的机器学习平台，可让您轻松设计、训练和部署机器学习模型。它提供了各种工具和服务，可帮助您完成机器学习项目的每个步骤，从数据准备到模型评估。</p>
+<h2 id="创建机器学习工作区与训练数据集"><a class="markdownIt-Anchor" href="#创建机器学习工作区与训练数据集"></a> <strong>创建机器学习工作区与训练数据集</strong></h2>
+<ol>
+<li>
+<p>登录 Azure 门户，创建一个 Azure Machine Learning 工作区。</p>
+</li>
+<li>
+<p>在工作区中，点击 “训练” 选项卡，然后点击 “从头训练模型”。</p>
+</li>
+<li>
+<p>选择您要训练的机器学习任务，如分类、回归或聚类。</p>
+</li>
+<li>
+<p>选择您要训练的数据集。您可以使用内置数据集或上传您自己的数据集。</p>
+</li>
+<li>
+<p>选择您要使用的模型。您可以选择内置模型或上传您自己的模型。</p>
+</li>
+<li>
+<p>配置模型的超参数。超参数是控制模型训练过程的参数，如学习率和迭代次数。</p>
+</li>
+<li>
+<p>训练模型。点击 “训练” 按钮开始训练过程。训练过程可能需要几分钟到几小时，具体取决于数据集的大小和复杂程度。</p>
+</li>
+</ol>
+<h2 id="评估模型"><a class="markdownIt-Anchor" href="#评估模型"></a> <strong>评估模型</strong></h2>
+<p>训练完成后，您需要评估模型的性能。您可以使用以下指标来评估模型的性能：</p>
+<ul>
+<li>__准确性：__分类模型的准确性是正确分类的样本数除以总样本数。</li>
+<li>__召回率：__召回率是正确分类的正样本数除以总正样本数。</li>
+<li>__精度：__精度是正确分类的正样本数除以所有分类为正样本的样本数。</li>
+<li>__F1 分数：__F1 分数是召回率和精度的调和平均值。</li>
+</ul>
+<p>您可以在 Azure Machine Learning Studio 中使用 “评估” 选项卡来评估模型的性能。</p>
+<h2 id="部署模型"><a class="markdownIt-Anchor" href="#部署模型"></a> <strong>部署模型</strong></h2>
+<p>一旦您对模型的性能感到满意，您就可以将其部署到生产环境中。Azure Machine Learning Studio 提供了几种将模型部署到生产环境中的方法，包括：</p>
+<ul>
+<li>__REST API：__您可以使用 REST API 将模型部署到 Web 服务。</li>
+<li>__Azure 机器学习服务：__您可以使用 Azure 机器学习服务将模型部署到托管环境中。</li>
+<li>__Azure 容器实例：__您可以使用 Azure 容器实例将模型部署到容器中。</li>
+</ul>
+<h2 id="代码示例"><a class="markdownIt-Anchor" href="#代码示例"></a> <strong>代码示例</strong></h2>
+<p>以下是如何使用 Azure Machine Learning Studio 训练和评估分类模型的代码示例：</p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> azureml.core <span class="hljs-keyword">import</span> Workspace, Dataset, Experiment
+<span class="hljs-keyword">from</span> azureml.train.estimator <span class="hljs-keyword">import</span> Estimator
+
+<span class="hljs-comment"># 创建 Azure Machine Learning 工作区 </span>
+workspace = Workspace.from_config ()
+
+<span class="hljs-comment"># 加载训练数据集 </span>
+train_dataset = Dataset.get_by_name (workspace, <span class="hljs-string">&#x27;training_dataset&#x27;</span>)
+
+<span class="hljs-comment"># 加载测试数据集 </span>
+test_dataset = Dataset.get_by_name (workspace, <span class="hljs-string">&#x27;test_dataset&#x27;</span>)
+
+<span class="hljs-comment"># 选择机器学习任务 </span>
+task = <span class="hljs-string">&#x27;classification&#x27;</span>
+
+<span class="hljs-comment"># 选择模型 </span>
+model = Estimator (source_directory=<span class="hljs-string">&#x27;my_model_directory&#x27;</span>)
+
+<span class="hljs-comment"># 配置模型的超参数 </span>
+model.set_hyperparameters (learning_rate=<span class="hljs-number">0.1</span>, iterations=<span class="hljs-number">100</span>)
+
+<span class="hljs-comment"># 训练模型 </span>
+experiment = Experiment (workspace, <span class="hljs-string">&#x27;my_experiment&#x27;</span>)
+run = experiment.submit (model, train_dataset)
+run.wait_for_completion ()
+
+<span class="hljs-comment"># 评估模型 </span>
+metrics = run.get_metrics ()
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Accuracy:&quot;</span>, metrics [<span class="hljs-string">&#x27;accuracy&#x27;</span>])
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Recall:&quot;</span>, metrics [<span class="hljs-string">&#x27;recall&#x27;</span>])
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Precision:&quot;</span>, metrics [<span class="hljs-string">&#x27;precision&#x27;</span>])
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;F1 Score:&quot;</span>, metrics [<span class="hljs-string">&#x27;f1_score&#x27;</span>])</code></pre>
+<h2 id="结论"><a class="markdownIt-Anchor" href="#结论"></a> <strong>结论</strong></h2>
+<p>Azure Machine Learning Studio 是一个功能强大的机器学习平台，可让您轻松设计、训练和部署机器学习模型。通过使用 Azure Machine Learning Studio，您可以快速构建和部署机器学习应用程序，从而解决各种业务问题。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 74k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+    <script>
+        function applyNightMode() {
+          const isNightMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isNightMode) {
+            document.body.classList.add('night-mode');
+          } else {
+            document.body.classList.remove('night-mode');
+          }
+        }
+      
+        applyNightMode();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyNightMode);
+      </script>      
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,d=o();function o(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=o());for(var e,i=0;i<d.length;i++)0<=(e=(e=d[i]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,a,n,o=d[i];e=function(){d=d.filter(function(t){return o!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(o)},(t=o).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,n=t.getAttribute("data-original"),a.onload=function(){t.src=n,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=n},t.src!==n&&(a.src=n)))}()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)}(this);</script></body>
+</html>

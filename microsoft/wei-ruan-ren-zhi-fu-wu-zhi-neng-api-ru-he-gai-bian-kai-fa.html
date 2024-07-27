@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+    <title>
+        
+            微软认知服务：智能 API 如何改变开发 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+   
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            
+                <div class="post-title">
+                    <h1>微软认知服务：智能 API 如何改变开发</h1>
+                </div>
+                <div class="post-meta">
+                    <i>Published</i>&nbsp;
+                    <span class="post-date">
+                        2024/02/15
+                    </span>&nbsp;&nbsp;
+                    <i>Updated</i>&nbsp;
+                    <span class="post-updated">
+                        2024/02/27
+                    </span>
+                </div>
+            
+            <div class="post-content">
+                <h2 id="标题微软认知服务智能-api-如何改变开发"><a class="markdownIt-Anchor" href="#标题微软认知服务智能-api-如何改变开发"></a> 标题：微软认知服务：智能 API 如何改变开发</h2>
+<h3 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h3>
+<p>微软认知服务是一套强大的智能 API，可以帮助开发人员轻松构建智能应用。这些 API 涵盖了计算机视觉、自然语言处理、语音和音乐等多个领域，可以帮助开发人员快速实现图像识别、文本分析、语音识别和翻译等功能。</p>
+<h3 id="api-的特点"><a class="markdownIt-Anchor" href="#api-的特点"></a> API 的特点</h3>
+<ul>
+<li><strong>易于使用</strong>：微软认知服务提供了清晰的文档和丰富的示例代码，开发人员可以轻松入门并快速构建智能应用。</li>
+<li><strong>功能强大</strong>：微软认知服务提供了多种强大的功能，可以满足不同场景下的需求。例如，计算机视觉 API 可以识别图像中的物体、面部和场景，文本分析 API 可以对文本进行情感分析、语言检测和关键词提取，语音 API 可以识别语音并将其转换成文本，音乐 API 可以提供歌曲的节奏、和弦和调性。</li>
+<li><strong>可扩展</strong>：微软认知服务可以根据需求进行扩展，开发人员可以根据需要添加或移除 API，以满足不同的应用场景。</li>
+</ul>
+<h3 id="应用场景"><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景</h3>
+<p>微软认知服务可以应用于多种场景，包括：</p>
+<ul>
+<li><strong>计算机视觉</strong>：图像识别、面部识别、场景识别、OCR（光学字符识别）、手势识别等。</li>
+<li><strong>自然语言处理</strong>：情感分析、语言检测、关键词提取、机器翻译、文本分类等。</li>
+<li><strong>语音</strong>：语音识别、语音合成、语音控制等。</li>
+<li><strong>音乐</strong>：节奏检测、和弦检测、调性检测、歌曲推荐等。</li>
+</ul>
+<h3 id="代码示例"><a class="markdownIt-Anchor" href="#代码示例"></a> 代码示例</h3>
+<p>下面是一个使用微软认知服务进行图像识别的代码示例：</p>
+<pre><code class="hljs plaintext">import cognitive_services_client as csc
+
+# 创建一个客户端
+client = csc.ImageRecognitionClient ()
+
+# 定义要识别的图像文件
+image_file = &quot;image.jpg&quot;
+
+# 识别图像
+result = client.recognize_image (image_file)
+
+# 打印识别结果
+for object in result:
+    print (object [&quot;name&quot;], object [&quot;confidence&quot;])</code></pre>
+<h3 id="结论"><a class="markdownIt-Anchor" href="#结论"></a> 结论</h3>
+<p>微软认知服务提供了一套强大的智能 API，可以帮助开发人员轻松构建智能应用。这些 API 易于使用、功能强大、可扩展，可以应用于多种场景。相信随着认知服务的不断发展，我们将看到越来越多的智能应用出现在我们的生活中。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 74k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+    <script>
+        function applyNightMode() {
+          const isNightMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isNightMode) {
+            document.body.classList.add('night-mode');
+          } else {
+            document.body.classList.remove('night-mode');
+          }
+        }
+      
+        applyNightMode();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyNightMode);
+      </script>      
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,d=o();function o(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=o());for(var e,i=0;i<d.length;i++)0<=(e=(e=d[i]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,a,n,o=d[i];e=function(){d=d.filter(function(t){return o!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(o)},(t=o).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,n=t.getAttribute("data-original"),a.onload=function(){t.src=n,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=n},t.src!==n&&(a.src=n)))}()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)}(this);</script></body>
+</html>

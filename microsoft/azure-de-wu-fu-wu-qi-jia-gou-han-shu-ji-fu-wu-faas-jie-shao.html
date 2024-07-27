@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <link rel="shortcut icon" href="/" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.loli.net">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+    <title>
+        
+            Azure 的无服务器架构：函数即服务（FaaS）介绍 |
+         
+        wolfyzhang&#39;s Homepage
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/font.css">
+
+     
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8TPGHN83M"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-P8TPGHN83M');
+        </script>
+    
+
+
+ 
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?814574df4ca5d3c5a44b815c9ad229ef";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+
+   
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div class="body-container">
+        <div class="header-wrapper"><header>
+    <div class="header-container">
+        <div class="header-menu">
+            <div class="header-menu-inside">
+                
+                    <div class="header-menu-home"><a href="/">Home</a></div>
+                
+                
+                    <div class="header-menu-links"><a href="/links">Links</a></div>
+                
+                
+                    <div class="header-menu-about"><a href="/about">About</a></div>
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+</header>
+</div>
+        <div class="main-wrapper"><main>
+    <div class="main-container">
+        <div class="post-details">
+            
+            
+                <div class="post-title">
+                    <h1>Azure 的无服务器架构：函数即服务（FaaS）介绍</h1>
+                </div>
+                <div class="post-meta">
+                    <i>Published</i>&nbsp;
+                    <span class="post-date">
+                        2024/01/31
+                    </span>&nbsp;&nbsp;
+                    <i>Updated</i>&nbsp;
+                    <span class="post-updated">
+                        2024/02/27
+                    </span>
+                </div>
+            
+            <div class="post-content">
+                <p><strong>标题：用趣味示例解锁 Azure 函数即服务 (FaaS) 的无限潜能</strong></p>
+<p><strong>引言：</strong><br />
+在云计算的世界里，无服务器架构正以其便捷性、经济性和灵活性而备受开发者的青睐。其中，函数即服务 (FaaS) 更是无服务器架构的明星选手，它允许开发者在无需管理服务器的情况下轻松构建和运行应用程序。Azure Functions 就是微软云平台上的一款 FaaS 服务，本文将通过有趣的示例，带领你解锁 Azure Functions 的无限潜能。</p>
+<p><strong>本示例代码</strong></p>
+<pre><code class="hljs csharp"><span class="hljs-comment">// Azure Functions Core: Dependency Injection in C#</span>
+
+<span class="hljs-keyword">using</span> Microsoft.Azure.Functions.Worker;
+<span class="hljs-keyword">using</span> Microsoft.Extensions.DependencyInjection;
+<span class="hljs-keyword">using</span> Microsoft.Extensions.Logging;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Function</span>
+&#123;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> ILogger _logger;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> IMessageService _messageService;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Function</span>(<span class="hljs-params">ILoggerFactory loggerFactory, IMessageService messageService</span>)</span>
+    &#123;
+        _logger = loggerFactory.CreateLogger&lt;Function&gt;();
+        _messageService = messageService;
+    &#125;
+
+    [<span class="hljs-meta">Function (<span class="hljs-string">&quot;HttpExample&quot;</span>)</span>]
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;HttpResponseData&gt; <span class="hljs-title">Run</span>(<span class="hljs-params">[HttpTrigger (AuthorizationLevel.Anonymous, <span class="hljs-string">&quot;get&quot;</span>, <span class="hljs-string">&quot;post&quot;</span></span>)] HttpRequestData req)</span>
+    &#123;
+        _logger.LogInformation (<span class="hljs-string">&quot;HTTP trigger function processed a request.&quot;</span>);
+
+        <span class="hljs-comment">// Get the message from the request body</span>
+        <span class="hljs-built_in">string</span> message = <span class="hljs-keyword">await</span> req.ReadAsStringAsync ();
+
+        <span class="hljs-comment">// Send the message using the injected service</span>
+        <span class="hljs-keyword">await</span> _messageService.SendMessageAsync (message);
+
+        <span class="hljs-keyword">return</span> req.CreateResponse (HttpStatusCode.OK);
+    &#125;
+&#125;
+
+<span class="hljs-comment">// Interface for the message service</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IMessageService</span>
+&#123;
+    <span class="hljs-function">Task <span class="hljs-title">SendMessageAsync</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> message</span>)</span>;
+&#125;
+
+<span class="hljs-comment">// Implementation of the message service</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MessageService</span> : <span class="hljs-title">IMessageService</span>
+&#123;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> ILogger _logger;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MessageService</span>(<span class="hljs-params">ILoggerFactory loggerFactory</span>)</span>
+    &#123;
+        _logger = loggerFactory.CreateLogger&lt;MessageService&gt;();
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task <span class="hljs-title">SendMessageAsync</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> message</span>)</span>
+    &#123;
+        _logger.LogInformation (<span class="hljs-string">$&quot;Sending message: <span class="hljs-subst">&#123;message&#125;</span>&quot;</span>);
+        <span class="hljs-comment">// Logic to send the message...</span>
+    &#125;
+&#125;
+
+<span class="hljs-comment">// Startup class for dependency injection configuration</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Startup</span>
+&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ConfigureServices</span>(<span class="hljs-params">WebHostBuilderContext context, IServiceCollection services</span>)</span>
+    &#123;
+        services.AddSingleton&lt;IMessageService, MessageService&gt;();
+    &#125;
+&#125;</code></pre>
+<p><strong>运行 Azure 函数的步骤：</strong></p>
+<ol>
+<li><strong>配置 Azure 函数项目：</strong>
+<ul>
+<li>创建一个新的 Azure 函数项目，可以使用 Visual Studio 或命令行工具。</li>
+<li>选择所需的语言和模板，创建一个新的函数。</li>
+</ul>
+</li>
+<li><strong>编写函数代码：</strong>
+<ul>
+<li>在函数代码中，定义函数的输入和输出类型，以及函数的逻辑。</li>
+<li>可以使用 Azure 函数库来简化代码编写。</li>
+</ul>
+</li>
+<li><strong>部署 Azure 函数：</strong>
+<ul>
+<li>将 Azure 函数项目部署到 Azure 上。</li>
+<li>可以使用 Azure 门户、Azure CLI 或 Azure PowerShell 来部署函数。</li>
+</ul>
+</li>
+<li><strong>测试 Azure 函数：</strong>
+<ul>
+<li>使用测试工具或模拟请求来测试 Azure 函数。</li>
+<li>可以通过 Azure 函数日志来查看函数的执行情况。</li>
+</ul>
+</li>
+</ol>
+<p><strong>Azure 函数的优点：</strong></p>
+<ul>
+<li>__无服务器：__无需管理服务器，简化了应用程序的开发和部署。</li>
+<li>__按需付费：__仅在函数执行时才收费，降低了成本。</li>
+<li>__高可用性：__Azure 函数服务具有高可用性，确保应用程序的可靠性和稳定性。</li>
+<li>__可扩展性：__Azure 函数服务可以自动扩展来处理负载高峰，无需担心应用程序的性能问题。</li>
+<li>__集成性：__Azure 函数服务可以与其他 Azure 服务轻松集成，便于构建复杂的应用程序。</li>
+</ul>
+<p><strong>Azure 函数的应用场景：</strong></p>
+<ul>
+<li>__Web API：__可以使用 Azure 函数来构建 RESTful API，并通过 HTTP 触发器来响应请求。</li>
+<li>__定时任务：__可以使用 Azure 函数来创建定时任务，并通过定时器触发器来触发函数的执行。</li>
+<li>__事件处理：__可以使用 Azure 函数来处理 Azure 事件，并通过事件触发器来触发函数的执行。</li>
+<li>__数据处理：__可以使用 Azure 函数来处理数据，并通过队列触发器或 Blob 触发器来触发函数的执行。</li>
+</ul>
+<p><strong>结语：</strong></p>
+<p>Azure 函数即服务 (FaaS) 是一项强大的云计算服务，它允许开发者轻松构建和运行无服务器应用程序。Azure 函数具有无服务器、按需付费、高可用性、可扩展性、集成性等优点，使其成为构建现代应用程序的理想选择。本文通过有趣的示例和技术深度，带领你解锁 Azure 函数的无限潜能。</p>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+  
+
+</div>
+        <div class="footer-wrapper"><footer>
+    <div class="footer-container">
+        <div class="footer-meta">
+            
+                <div class="footer-meta-copyright">
+                    Copyright &copy; 2024 wolfyzhang.
+                </div>
+            
+            <div class="footer-meta-symbols-count">
+                All words count: 74k.
+            </div>
+            <!--
+            
+                <div class="footer-meta-licenese">
+                    Licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>
+                </div>
+            
+            -->
+        </div>
+    </div>
+    <script>
+        function applyNightMode() {
+          const isNightMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isNightMode) {
+            document.body.classList.add('night-mode');
+          } else {
+            document.body.classList.remove('night-mode');
+          }
+        }
+      
+        applyNightMode();
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyNightMode);
+      </script>      
+</footer>
+</div>
+    </div>
+
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,d=o();function o(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=o());for(var e,i=0;i<d.length;i++)0<=(e=(e=d[i]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,a,n,o=d[i];e=function(){d=d.filter(function(t){return o!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(o)},(t=o).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,n=t.getAttribute("data-original"),a.onload=function(){t.src=n,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=n},t.src!==n&&(a.src=n)))}()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)}(this);</script></body>
+</html>
